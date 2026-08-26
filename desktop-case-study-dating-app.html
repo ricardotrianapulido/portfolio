@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trust-Centered Dating App Onboarding — Ricardo Triana</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --yellow-hero:#f5cf26;
+    --yellow-bright:#fffe55;
+    --yellow-solid:#ffd500;
+    --yellow-gold:#facc15;
+    --black:#000000;
+    --near-black:#111111;
+    --darker:#0a0c10;
+    --darkcard:#1a1d23;
+    --heading-black:#1c1a1a;
+    --gray-700:#676565;
+    --gray-500:#9ca3af;
+    --gray-border:#e5e7eb;
+    --gray-bg:#f5f5f5;
+    --gray-bg-2:#f3f4f6;
+    --gray-bg-3:#fcfcfc;
+    --gray-divider:#d1d5db;
+    --max-w:1440px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Plus Jakarta Sans',sans-serif;
+    color:var(--near-black);
+    background:#fff;
+    -webkit-font-smoothing:antialiased;
+  }
+  img{display:block;max-width:100%;}
+  a{color:inherit;text-decoration:none;}
+  .wrap{max-width:var(--max-w);margin:0 auto;width:100%;}
+  .icon{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.6;}
+
+  /* ============ NAVBAR ============ */
+  .cs-navbar{background:var(--yellow-bright);padding:32px 80px 0;}
+  .cs-navbar-row{display:flex;align-items:center;justify-content:space-between;padding-bottom:32px;position:relative;}
+  .cs-logo{font-family:'Pacifico',cursive;font-size:32px;color:#000;}
+  .cs-nav-links{display:flex;gap:32px;align-items:center;position:absolute;left:50%;transform:translateX(-50%);}
+  .cs-nav-links a{font-size:18px;color:#000;white-space:nowrap;}
+  .cs-nav-links a.active{font-weight:700;}
+  .cs-social{display:flex;align-items:center;gap:20px;}
+  .cs-social a{display:flex;align-items:center;justify-content:center;color:#000;}
+  .cs-navbar-divider{height:1px;background:rgba(0,0,0,0.15);width:100%;}
+
+  /* ============ HERO ============ */
+  .cs-hero{background:var(--yellow-bright);padding:96px 80px 128px;}
+  .cs-hero-top{display:flex;justify-content:space-between;align-items:flex-end;gap:40px;margin-bottom:64px;flex-wrap:wrap;}
+  .cs-hero-tags{display:flex;gap:16px;margin-bottom:28px;flex-wrap:wrap;}
+  .cs-tag-dark{background:#111;color:#fff;font-weight:700;font-size:14px;letter-spacing:1.4px;text-transform:uppercase;padding:8px 16px;}
+  .cs-hero h1{font-weight:700;font-size:78px;letter-spacing:-3.9px;line-height:1.02;color:#111;max-width:900px;}
+  .cs-hero-right{display:flex;flex-direction:column;align-items:flex-end;gap:24px;max-width:460px;}
+  .cs-hero-right svg{width:88px;height:88px;stroke:#111;stroke-width:1.5;}
+  .cs-hero-right p{font-size:20px;font-weight:500;text-align:right;color:#111;line-height:1.4;letter-spacing:-0.3px;}
+  .cs-metric-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+  .cs-metric-card{padding:40px;display:flex;flex-direction:column;gap:8px;box-shadow:0 20px 25px -5px rgba(0,0,0,0.1),0 8px 10px -6px rgba(0,0,0,0.1);}
+  .cs-metric-card.dark{background:#111;}
+  .cs-metric-card.light{background:#fff;}
+  .cs-metric-card .label{font-weight:700;font-size:14px;letter-spacing:1.4px;text-transform:uppercase;}
+  .cs-metric-card.dark .label{color:var(--yellow-bright);}
+  .cs-metric-card.light .label{color:var(--gray-700);}
+  .cs-metric-card .value{font-weight:700;font-size:60px;line-height:1;margin-top:4px;}
+  .cs-metric-card.dark .value{color:var(--yellow-bright);}
+  .cs-metric-card.light .value{color:#111;}
+  .cs-metric-card .desc{font-size:18px;margin-top:2px;}
+  .cs-metric-card.dark .desc{color:#fff;}
+  .cs-metric-card.light .desc{color:var(--gray-700);}
+
+  /* ============ EXEC SUMMARY ============ */
+  .cs-exec{background:#fff;padding:128px 80px;}
+  .cs-exec-inner{display:grid;grid-template-columns:1fr 1fr;gap:48px;}
+  .cs-eyebrow{display:flex;align-items:center;gap:16px;margin-bottom:32px;}
+  .cs-eyebrow .line{width:48px;height:1px;background:var(--gray-700);flex-shrink:0;}
+  .cs-eyebrow span{font-weight:700;font-size:16px;letter-spacing:1.4px;text-transform:uppercase;color:var(--gray-700);}
+  .cs-exec-statement{font-weight:500;font-size:30px;line-height:1.375;color:var(--heading-black);}
+  .cs-exec-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px 48px;row-gap:64px;}
+  .cs-exec-grid h4{font-weight:700;font-size:20px;color:#111;margin-bottom:16px;}
+  .cs-exec-grid p{font-size:20px;line-height:1.625;color:var(--gray-700);}
+
+  /* ============ CHALLENGE ============ */
+  .cs-challenge{background:var(--near-black);padding:128px 80px;}
+  .cs-challenge-inner{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;}
+  .cs-challenge-left{display:flex;flex-direction:column;gap:48px;}
+  .cs-eyebrow-solo{font-weight:700;font-size:20px;letter-spacing:1.4px;text-transform:uppercase;color:var(--yellow-bright);}
+  .cs-challenge h2{font-weight:700;font-size:60px;letter-spacing:-1.5px;line-height:1.25;color:#fff;}
+  .cs-challenge-left>p{font-size:24px;line-height:1.6;color:var(--gray-700);}
+  .cs-challenge-list{background:rgba(255,255,255,0.05);border-left:4px solid var(--yellow-bright);padding:16px 0 16px 32px;display:flex;flex-direction:column;}
+  .cs-challenge-list .item-title{font-weight:700;font-style:italic;font-size:24px;color:#d1d5db;line-height:1.5;margin-top:12px;}
+  .cs-challenge-list .item-title:first-child{margin-top:0;}
+  .cs-challenge-list .item-desc{font-style:italic;font-size:24px;color:#d1d5db;line-height:1.5;margin-bottom:4px;}
+  .cs-challenge-photo{position:relative;height:700px;border-radius:24px;overflow:hidden;background:#222;}
+  .cs-challenge-photo img{width:100%;height:100%;object-fit:cover;}
+  .cs-challenge-photo::after{content:"";position:absolute;inset:0;background:linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0) 55%);}
+  .cs-challenge-badge{position:absolute;left:48px;bottom:48px;display:flex;align-items:center;gap:16px;z-index:2;}
+  .cs-challenge-badge .dot{background:var(--yellow-bright);border-radius:9999px;padding:16px;display:flex;align-items:center;justify-content:center;}
+  .cs-challenge-badge .dot svg{width:32px;height:32px;stroke:#111;}
+  .cs-challenge-badge span{font-weight:700;font-size:20px;color:#fff;}
+
+  /* ============ PROJECT DNA ============ */
+  .cs-dna{background:#f9f9f9;padding:96px 80px;}
+  .cs-dna-head{display:flex;align-items:center;gap:12px;margin-bottom:64px;}
+  .cs-dna-head .line{width:32px;height:2px;background:var(--yellow-gold);}
+  .cs-dna-head span{font-weight:700;font-size:20px;letter-spacing:1.2px;text-transform:uppercase;color:#888;}
+  .cs-dna-grid{display:flex;flex-wrap:wrap;gap:40px 58px;}
+  .cs-dna-col{flex:1 1 300px;min-width:280px;display:flex;flex-direction:column;gap:24px;}
+  .cs-dna-col .col-label{font-weight:700;font-size:20px;letter-spacing:2.2px;text-transform:uppercase;color:var(--yellow-gold);}
+  .cs-dna-col .col-divider{height:1px;background:#e4e4e7;width:100%;margin-top:8px;margin-bottom:16px;}
+  .cs-dna-industry{display:flex;align-items:center;gap:12px;margin-bottom:14px;}
+  .cs-dna-industry svg{width:24px;height:24px;stroke:#18181b;}
+  .cs-dna-industry h3{font-weight:600;font-size:24px;letter-spacing:-0.6px;color:#18181b;}
+  .cs-dna-col p{font-size:20px;line-height:1.35;color:#71717a;}
+  .cs-dna-col .scope-text{font-weight:500;font-size:20px;line-height:1.65;color:#18181b;}
+  .cs-dna-pills{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:16px;}
+  .cs-dna-pill{background:#fff;border:1px solid #e4e4e7;border-radius:9999px;padding:5px 14px;font-weight:500;font-size:16px;color:#3f3f46;}
+  .cs-dna-col .method-note{color:#a1a1aa;}
+  .cs-dna-stake h3{font-weight:600;font-size:18px;letter-spacing:-0.45px;color:#18181b;line-height:1.4;margin-bottom:12px;}
+  .cs-dna-stake .tag{display:flex;align-items:center;gap:8px;}
+  .cs-dna-stake .tag .dot{width:6px;height:6px;border-radius:9999px;background:var(--yellow-gold);}
+  .cs-dna-stake .tag span{font-weight:700;font-size:16px;letter-spacing:1.2px;text-transform:uppercase;color:#71717a;}
+  .cs-dna-foot{margin-top:64px;height:1px;background:linear-gradient(to right, rgba(255,215,0,0.5), rgba(255,215,0,0));}
+
+  /* ============ LEADERSHIP DECISIONS ============ */
+  .cs-leadership{background:#000;padding:96px 80px;}
+  .cs-leadership-head{display:flex;flex-direction:column;gap:24px;margin-bottom:64px;max-width:800px;}
+  .cs-leadership-eyebrow{font-weight:700;font-size:14px;letter-spacing:2.8px;text-transform:uppercase;color:var(--yellow-gold);}
+  .cs-leadership h2{font-weight:600;font-size:60px;letter-spacing:-1.5px;color:#fff;line-height:1.1;}
+  .cs-leadership-head>p{font-size:20px;line-height:1.625;color:#888;}
+  .cs-leadership-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px;}
+  .cs-lead-card{background:#111;border-left:2px solid var(--yellow-gold);padding:48px;display:flex;flex-direction:column;justify-content:space-between;min-height:340px;}
+  .cs-lead-card-top{display:flex;flex-direction:column;gap:16px;padding-bottom:32px;}
+  .cs-lead-badge{display:inline-flex;border:1px solid rgba(250,204,21,0.3);color:var(--yellow-gold);font-weight:700;font-size:10px;letter-spacing:1px;text-transform:uppercase;padding:4px 8px;width:fit-content;border-radius:2px;}
+  .cs-lead-card h3{font-weight:600;font-size:24px;color:#fff;line-height:1.375;padding-top:16px;}
+  .cs-lead-card p.body{font-size:18px;color:#888;line-height:1.625;font-weight:300;}
+  .cs-lead-card-foot{border-top:1px solid #222;padding-top:32px;display:flex;flex-direction:column;gap:8px;}
+  .cs-lead-card-foot .to-label{font-weight:700;font-size:12px;letter-spacing:0.6px;text-transform:uppercase;color:var(--yellow-gold);}
+  .cs-lead-card-foot .to-text{font-size:14px;color:#fff;}
+
+  /* ============ EVIDENCE ============ */
+  .cs-evidence{background:#fff;padding:128px 80px;}
+  .cs-evidence-inner{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;}
+  .cs-evidence-label{font-weight:700;font-size:20px;letter-spacing:1.4px;text-transform:uppercase;color:var(--gray-700);margin-bottom:48px;}
+  .cs-insight{display:flex;gap:24px;margin-bottom:32px;}
+  .cs-insight:last-child{margin-bottom:0;}
+  .cs-insight .n{font-weight:700;font-size:36px;color:var(--yellow-bright);filter:drop-shadow(0 0 0.5px rgba(0,0,0,0.5));flex-shrink:0;width:56px;}
+  .cs-insight h5{font-weight:700;font-size:24px;letter-spacing:-0.3px;color:#111;margin-bottom:8px;}
+  .cs-insight p{font-size:18px;color:var(--gray-700);line-height:1.55;}
+  .cs-evidence-card{background:#f5f3f3;border-radius:24px;padding:64px;display:flex;flex-direction:column;gap:48px;}
+  .cs-evidence-card .head{font-weight:700;font-size:16px;letter-spacing:1.4px;text-transform:uppercase;color:var(--gray-700);}
+  .cs-evidence-rows{display:flex;flex-direction:column;gap:24px;}
+  .cs-evidence-row{display:flex;align-items:center;justify-content:space-between;gap:24px;border-bottom:1px solid var(--gray-border);padding-bottom:24px;}
+  .cs-evidence-row:last-child{border-bottom:none;padding-bottom:0;}
+  .cs-evidence-row .name{font-weight:500;font-size:20px;color:#111;white-space:nowrap;}
+  .cs-evidence-row .desc{font-size:20px;color:#111;text-align:right;max-width:300px;}
+
+  /* ============ UX LEAD OPERATING MODEL ============ */
+  .cs-operating{background:var(--yellow-bright);padding:96px 80px;}
+  .cs-operating-head{display:flex;flex-direction:column;gap:24px;max-width:896px;margin-bottom:80px;}
+  .cs-operating-head .label{font-weight:700;font-size:20px;letter-spacing:2.1px;text-transform:uppercase;color:var(--gray-700);}
+  .cs-operating-head h2{font-weight:700;font-size:48px;letter-spacing:-1.2px;color:#111;}
+  .cs-operating-head p{font-size:20px;line-height:1.625;color:var(--gray-700);max-width:672px;}
+  .cs-steps{position:relative;}
+  .cs-steps-line{position:absolute;left:0;right:0;top:32px;height:1px;background:#e5e7eb;z-index:0;}
+  .cs-steps-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:24px;position:relative;z-index:1;}
+  .cs-step{display:flex;flex-direction:column;align-items:center;text-align:center;}
+  .cs-step-circle{width:64px;height:64px;border-radius:9999px;background:#111;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:20px;box-shadow:0 1px 1px rgba(0,0,0,0.05);margin-bottom:24px;}
+  .cs-step.highlight .cs-step-circle{width:70px;height:70px;background:#f2ff5c;color:#111;border:3px solid #111;font-size:22px;box-shadow:0 10px 15px -3px rgba(0,0,0,0.1),0 4px 6px -4px rgba(0,0,0,0.1);}
+  .cs-step h5{font-weight:700;font-size:18px;color:#111;margin-bottom:12px;}
+  .cs-step p{font-size:15px;color:var(--gray-700);line-height:1.6;max-width:230px;}
+  .cs-operating-foot{border-top:1px solid #e5e7eb;margin-top:80px;padding-top:32px;display:flex;gap:32px;align-items:center;flex-wrap:wrap;}
+  .cs-operating-tag{display:flex;align-items:center;gap:8px;}
+  .cs-operating-tag svg{width:16px;height:16px;stroke:#111;}
+  .cs-operating-tag span{font-weight:700;font-size:12px;letter-spacing:1.2px;text-transform:uppercase;color:#111;}
+  .cs-operating-tagdiv{width:16px;height:1px;background:#e5e7eb;}
+
+  /* ============ SOLUTION SHOWCASE ============ */
+  .cs-solution{background:#fff;padding:96px 48px;display:flex;justify-content:center;}
+  .cs-solution-inner{max-width:1200px;width:100%;display:flex;flex-direction:column;gap:48px;}
+  .cs-solution-head .label{font-weight:700;font-size:20px;letter-spacing:2px;text-transform:uppercase;color:#ffb800;margin-bottom:16px;}
+  .cs-solution-head h2{font-weight:700;font-size:48px;color:var(--heading-black);line-height:1.2;margin-bottom:16px;}
+  .cs-solution-head p{font-size:20px;color:#4b5563;line-height:1.6;max-width:780px;}
+  .cs-showcase-stage{background:#f9fafb;border:1px solid #e5e7eb;border-radius:40px;height:600px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;}
+  .cs-phone-card{position:absolute;background:#fff;border:1px solid #f3f4f6;border-radius:24px;overflow:hidden;box-shadow:0 25px 50px -12px rgba(0,0,0,0.25);}
+  .cs-phone-card img{width:100%;height:100%;object-fit:cover;}
+  .cs-phone-center{position:relative;z-index:5;background:#000;border-radius:38px;padding:9px;width:230px;height:478px;box-shadow:0 50px 100px -20px rgba(0,0,0,0.3);}
+  .cs-phone-center-inner{width:100%;height:100%;border-radius:30px;overflow:hidden;background:#fff;}
+  .cs-phone-center-inner img{width:100%;height:100%;object-fit:cover;}
+  .cs-showcase-badge{position:absolute;z-index:6;background:rgba(255,255,255,0.9);backdrop-filter:blur(4px);border:1px solid #e5e7eb;border-radius:9999px;padding:8px 16px;font-weight:600;font-size:14px;color:var(--heading-black);box-shadow:0 1px 2px rgba(0,0,0,0.05);white-space:nowrap;}
+  .cs-solution-buttons{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;}
+  .cs-sol-btn{background:var(--yellow-bright);border:1px solid rgba(0,0,0,0.05);box-shadow:0 10px 15px -3px rgba(0,0,0,0.1),0 4px 6px -4px rgba(0,0,0,0.1);border-radius:9999px;padding:20px 48px;display:flex;align-items:center;gap:16px;font-weight:700;font-size:18px;color:var(--heading-black);}
+  .cs-sol-btn svg{width:22px;height:22px;stroke:var(--heading-black);}
+  .cs-solution-legend{display:flex;gap:40px;justify-content:center;flex-wrap:wrap;}
+  .cs-legend-item{display:flex;align-items:center;gap:12px;}
+  .cs-legend-item .check{width:24px;height:24px;border-radius:9999px;background:#10b981;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .cs-legend-item .check svg{width:12px;height:12px;stroke:#fff;stroke-width:3;}
+  .cs-legend-item span{font-size:16px;color:#4b5563;font-weight:500;}
+
+  /* ============ VALIDATION & RESULTS ============ */
+  .cs-validation{background:var(--yellow-bright);padding:128px 80px;display:flex;flex-direction:column;align-items:center;}
+  .cs-validation-head{display:flex;flex-direction:column;align-items:center;gap:16px;margin-bottom:48px;}
+  .cs-validation-head .label{font-weight:700;font-size:14px;letter-spacing:2.8px;text-transform:uppercase;color:rgba(17,17,17,0.6);}
+  .cs-validation-head h2{font-weight:800;font-size:72px;letter-spacing:-1.8px;color:#111;text-align:center;}
+  .cs-val2-wrap{max-width:1280px;width:100%;display:flex;gap:24px;flex-wrap:wrap;align-items:stretch;}
+  .cs-val2-dark{background:#111;border-radius:40px;padding:48px;flex:1 1 400px;display:flex;flex-direction:column;justify-content:space-between;gap:48px;}
+  .cs-val2-metric-label{font-weight:700;font-size:12px;letter-spacing:1.2px;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-bottom:16px;}
+  .cs-val2-metric-value{font-weight:800;font-size:72px;letter-spacing:-1.8px;color:#fff;line-height:1;}
+  .cs-val2-metric-sub{font-weight:800;font-size:30px;letter-spacing:-1.8px;color:#fff;opacity:0.8;margin-top:8px;}
+  .cs-val2-support-label{font-weight:700;font-size:12px;letter-spacing:1.2px;text-transform:uppercase;color:#fff;margin-bottom:16px;}
+  .cs-val2-support-value{font-weight:700;font-size:48px;letter-spacing:-1.2px;color:#fff;}
+  .cs-val2-foot{border-top:1px solid rgba(255,255,255,0.1);padding-top:48px;}
+  .cs-val2-foot-label{font-weight:700;font-size:12px;letter-spacing:1.2px;text-transform:uppercase;color:var(--yellow-gold);margin-bottom:16px;}
+  .cs-val2-foot p{font-size:20px;color:rgba(255,255,255,0.7);line-height:1.625;}
+  .cs-val2-list{flex:2 1 600px;display:flex;flex-direction:column;gap:24px;}
+  .cs-val2-card{background:#fff;border:1px solid rgba(17,17,17,0.05);border-radius:32px;padding:40px;flex:1;}
+  .cs-val2-card h3{font-weight:700;font-size:30px;color:#111;margin-bottom:12px;}
+  .cs-val2-card p{font-size:20px;color:rgba(17,17,17,0.7);line-height:1.4;}
+  .cs-val2-bottom{max-width:1280px;width:100%;border-top:2px solid rgba(17,17,17,0.1);margin-top:48px;padding-top:48px;display:flex;align-items:center;justify-content:center;gap:48px;flex-wrap:wrap;}
+  .cs-val2-impact{font-weight:800;font-size:20px;letter-spacing:-0.5px;color:#111;line-height:1.4;}
+  .cs-val2-validated{display:flex;align-items:center;gap:24px;flex-wrap:wrap;}
+  .cs-val2-validated>span{font-weight:800;font-size:14px;letter-spacing:1px;text-transform:uppercase;color:rgba(17,17,17,0.5);line-height:1.2;}
+  .cs-val2-pills{display:flex;gap:12px;flex-wrap:wrap;max-width:820px;}
+  .cs-val2-pill{background:#fff;border:1px solid rgba(17,17,17,0.1);border-radius:9999px;padding:8px 16px;font-weight:700;font-size:14px;color:#111;}
+
+  /* ============ LEADERSHIP IMPACT ============ */
+  .cs-limpact{background:#f5f5f7;padding:128px 96px;}
+  .cs-limpact-head{margin-bottom:80px;}
+  .cs-limpact-eyebrow{display:flex;align-items:center;gap:16px;margin-bottom:24px;}
+  .cs-limpact-eyebrow span{font-weight:700;font-size:20px;letter-spacing:2.8px;text-transform:uppercase;color:#6b7280;}
+  .cs-limpact-eyebrow .line{width:48px;height:1px;background:rgba(107,114,128,0.3);}
+  .cs-limpact h2{font-weight:800;font-size:60px;letter-spacing:-1.5px;color:#0a0a0a;line-height:1.1;}
+  .cs-limpact h2 em{font-style:italic;color:rgba(107,114,128,0.5);font-weight:800;}
+  .cs-limpact-cards{display:flex;flex-wrap:wrap;gap:32px;margin-bottom:48px;}
+  .cs-limpact-card{background:#0a0a0a;border:1px solid rgba(255,255,255,0.05);border-radius:8px;padding:40px;flex:1 1 340px;display:flex;flex-direction:column;justify-content:space-between;min-height:500px;}
+  .cs-limpact-card.alt{background:#1a1a1a;}
+  .cs-limpact-icon{width:56px;height:56px;border-radius:9999px;background:var(--yellow-gold);display:flex;align-items:center;justify-content:center;margin-bottom:24px;}
+  .cs-limpact-icon svg{width:24px;height:24px;stroke:#111;}
+  .cs-limpact-card h3{font-weight:700;font-size:32px;color:#fff;margin-bottom:8px;line-height:1.15;}
+  .cs-limpact-card .subtitle{font-weight:500;font-size:14px;letter-spacing:0.35px;color:#6b7280;text-transform:uppercase;margin-bottom:32px;}
+  .cs-limpact-list{display:flex;flex-direction:column;gap:24px;}
+  .cs-limpact-list .row{display:flex;gap:16px;align-items:flex-start;}
+  .cs-limpact-list .row .dot{width:10px;height:10px;border-radius:9999px;background:var(--yellow-gold);flex-shrink:0;margin-top:8px;}
+  .cs-limpact-list .row span{font-weight:500;font-size:18px;color:rgba(255,255,255,0.9);line-height:1.6;}
+  .cs-limpact-quote{background:rgba(255,255,255,0.5);border:1px solid rgba(0,0,0,0.05);border-radius:24px;padding:64px 48px 48px;display:flex;gap:48px;align-items:flex-start;flex-wrap:wrap;}
+  .cs-avatars{display:flex;flex-shrink:0;}
+  .cs-avatars img{width:64px;height:64px;border-radius:9999px;border:4px solid #f5f5f7;object-fit:cover;margin-left:-16px;}
+  .cs-avatars img:first-child{margin-left:0;}
+  .cs-limpact-quote-text{flex:1;min-width:280px;display:flex;flex-direction:column;gap:24px;}
+  .cs-limpact-quote-text p{font-weight:700;font-size:30px;color:#0a0a0a;line-height:1.3;}
+  .cs-limpact-quote-text p em{font-style:italic;color:#6b7280;}
+  .cs-limpact-tagrow{display:flex;align-items:center;gap:12px;}
+  .cs-limpact-tagrow .line{width:24px;height:2px;background:var(--yellow-gold);}
+  .cs-limpact-tagrow span{font-weight:700;font-size:14px;letter-spacing:1.4px;text-transform:uppercase;color:#6b7280;}
+
+  /* ============ NEXT CASE STUDY CTA ============ */
+  .cs-next{background:#fff;border-top:1px solid #f3f4f6;padding:128px 80px;}
+  .cs-next-inner{display:flex;justify-content:space-between;align-items:center;gap:40px;flex-wrap:wrap;}
+  .cs-next-label{font-weight:700;font-size:14px;letter-spacing:1.4px;text-transform:uppercase;color:var(--gray-700);margin-bottom:16px;}
+  .cs-next h3{font-weight:700;font-size:48px;letter-spacing:-2.4px;color:#111;line-height:1.1;}
+  .cs-next-right{display:flex;align-items:center;gap:32px;flex-wrap:wrap;}
+  .cs-next-right p{font-weight:500;font-size:24px;color:#111;}
+  .cs-next-arrow{width:80px;height:80px;border-radius:9999px;background:var(--yellow-bright);border:2px solid #000;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .cs-next-arrow svg{width:36px;height:36px;stroke:#000;stroke-width:1.5;}
+
+  /* ============ FOOTER (shared with homepage) ============ */
+  .footer{background:var(--yellow-bright);padding:128px 80px 80px;display:flex;flex-direction:column;gap:128px;}
+  .footer-top{max-width:896px;display:flex;flex-direction:column;gap:48px;}
+  .footer-top h2{font-weight:800;font-size:72px;letter-spacing:-4px;color:#000;line-height:0.95;}
+  .footer-links{display:flex;gap:32px;flex-wrap:wrap;}
+  .footer-links a{font-weight:800;font-size:24px;color:#000;text-decoration:underline;text-underline-offset:4px;}
+  .footer-bottom{border-top:1px solid rgba(0,0,0,0.1);padding-top:80px;display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:32px;}
+  .footer-brand{display:flex;flex-direction:column;gap:24px;}
+  .footer-logo{background:var(--black);color:#fff;font-family:'Pacifico',cursive;font-size:32px;text-align:center;padding:16px 32px;}
+  .footer-tagline{font-weight:700;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:rgba(0,0,0,0.6);}
+  .footer-nav-col{display:flex;flex-direction:column;align-items:flex-end;gap:24px;}
+  .footer-nav{display:flex;gap:48px;flex-wrap:wrap;}
+  .footer-nav a{font-weight:800;font-size:14px;letter-spacing:1.4px;text-transform:uppercase;color:#000;}
+  .footer-copy{font-size:12px;color:rgba(0,0,0,0.4);}
+
+  @media (max-width:1100px){
+    .cs-navbar,.cs-hero,.cs-exec,.cs-challenge,.cs-dna,.cs-leadership,.cs-evidence,.cs-operating,.cs-solution,.cs-validation,.cs-limpact,.cs-next{padding-left:32px;padding-right:32px;}
+    .cs-nav-links{display:none;}
+    .cs-hero h1{font-size:48px;letter-spacing:-2px;}
+    .cs-hero-top{flex-direction:column;align-items:flex-start;}
+    .cs-hero-right{align-items:flex-start;}
+    .cs-hero-right p{text-align:left;}
+    .cs-metric-grid{grid-template-columns:1fr;}
+    .cs-exec-inner{grid-template-columns:1fr;}
+    .cs-exec-grid{grid-template-columns:1fr;}
+    .cs-challenge-inner{grid-template-columns:1fr;}
+    .cs-challenge-photo{height:400px;}
+    .cs-leadership-grid{grid-template-columns:1fr;}
+    .cs-evidence-inner{grid-template-columns:1fr;}
+    .cs-steps-grid{grid-template-columns:1fr 1fr;row-gap:48px;}
+    .cs-steps-line{display:none;}
+    .cs-showcase-stage{height:420px;}
+    .cs-phone-card{display:none;}
+    .cs-showcase-badge{display:none;}
+    .cs-val2-wrap{flex-direction:column;}
+    .cs-next-inner{flex-direction:column;align-items:flex-start;}
+    .cs-validation-head h2{font-size:44px;}
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ NAVBAR ============ -->
+<div class="cs-navbar">
+  <div class="wrap">
+    <div class="cs-navbar-row">
+      <a class="cs-logo" href="desktop-homepage.html">ricardotriana</a>
+      <nav class="cs-nav-links">
+        <a href="desktop-homepage.html#impact">Impact</a>
+        <a href="desktop-homepage.html#principles">Principles</a>
+        <a href="desktop-homepage.html#case-studies">Case Studies</a>
+        <a href="desktop-homepage.html#ai-ux">AI + UX</a>
+        <a href="desktop-homepage.html#about">About</a>
+        <a href="desktop-homepage.html#framework">Framework</a>
+      </nav>
+      <div class="cs-social">
+        <a href="https://www.linkedin.com/in/trianaricardo/?locale=en_US" target="_blank" aria-label="LinkedIn">
+          <svg width="19" height="19" viewBox="0 0 24 24"><rect width="24" height="24" rx="4" fill="#000"/><path d="M7.5 9h2.8v9H7.5V9Zm1.4-4.5A1.6 1.6 0 1 1 7.3 6.1 1.6 1.6 0 0 1 8.9 4.5ZM12.3 9h2.7v1.23h.04c.38-.7 1.3-1.44 2.68-1.44 2.87 0 3.4 1.83 3.4 4.2V18h-2.8v-4.4c0-1.05-.02-2.4-1.5-2.4-1.5 0-1.73 1.14-1.73 2.32V18h-2.79V9Z" fill="#fff"/></svg>
+        </a>
+        <a href="https://drive.google.com/file/d/1j9Ro1nNsLiptuclmUUe1wdJqXiIUSekA/view?usp=drive_link" target="_blank" aria-label="Download CV">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1.5"><path d="M6 2h9l5 5v13a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2Z"/><path d="M15 2v5h5"/><path d="M8 13h8M8 17h5" stroke-linecap="round"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="cs-navbar-divider"></div>
+  </div>
+</div>
+
+<!-- ============ HERO ============ -->
+<section class="cs-hero">
+  <div class="wrap">
+    <div class="cs-hero-top">
+      <div>
+        <div class="cs-hero-tags">
+          <span class="cs-tag-dark">Dating App</span>
+          <span class="cs-tag-dark">Onboarding</span>
+          <span class="cs-tag-dark">Trust &amp; Conversion</span>
+        </div>
+        <h1>Trust-Centered Dating App Onboarding</h1>
+      </div>
+      <div class="cs-hero-right">
+        <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg>
+        <p>Redesigning onboarding and premium upgrade moments to build trust, improve motivation, and make value easier to understand.</p>
+      </div>
+    </div>
+    <div class="cs-metric-grid">
+      <div class="cs-metric-card dark">
+        <span class="label">Completion</span>
+        <span class="value">91%</span>
+        <span class="desc">Registration completion</span>
+      </div>
+      <div class="cs-metric-card light">
+        <span class="label">Conversion</span>
+        <span class="value">80%+</span>
+        <span class="desc">Total conversion across key flows</span>
+      </div>
+      <div class="cs-metric-card light">
+        <span class="label">Usability</span>
+        <span class="value">SUS 70+</span>
+        <span class="desc">Across sign-up, exploration, and profile flows</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ EXECUTIVE SUMMARY ============ -->
+<section class="cs-exec">
+  <div class="wrap cs-exec-inner">
+    <div>
+      <div class="cs-eyebrow"><span class="line"></span><span>01 Executive Summary</span></div>
+      <p class="cs-exec-statement">A product strategy and onboarding redesign focused on trust, motivation, and perceived value.</p>
+    </div>
+    <div class="cs-exec-grid">
+      <div>
+        <h4>Context</h4>
+        <p>A dating app needed to improve an onboarding experience that felt long, unclear, and disconnected from the product's emotional value.</p>
+      </div>
+      <div>
+        <h4>Challenge</h4>
+        <p>Users were being asked to share personal information before understanding why it mattered or how it would improve their experience.</p>
+      </div>
+      <div>
+        <h4>My Role</h4>
+        <p>I led UX strategy, research, prioritization, stakeholder alignment, prototyping, validation, and AI-supported workflow acceleration.</p>
+      </div>
+      <div>
+        <h4>Outcome</h4>
+        <p>The redesign improved registration completion, total conversion, usability perception, and the clarity of the premium upgrade experience.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ THE CHALLENGE ============ -->
+<section class="cs-challenge">
+  <div class="wrap cs-challenge-inner">
+    <div class="cs-challenge-left">
+      <span class="cs-eyebrow-solo">The Challenge</span>
+      <h2>A high-emotion product with low trust and unclear motivation.</h2>
+      <p>The onboarding experience asked users for personal information before making the value of the product clear. This created friction, hesitation, and weak motivation to complete the flow.</p>
+      <div class="cs-challenge-list">
+        <div class="item-title">01. Long and unclear onboarding</div>
+        <div class="item-desc">Users were asked to complete too many steps before understanding the value of the experience.</div>
+        <div class="item-title">02. Sensitive data without context</div>
+        <div class="item-desc">The flow requested personal information without clearly explaining why it mattered.</div>
+        <div class="item-title">03. Weak premium value proposition</div>
+        <div class="item-desc">The upgrade moment lacked clarity, timing, and a strong reason to convert.</div>
+      </div>
+    </div>
+    <div class="cs-challenge-photo">
+      <img src="https://www.figma.com/api/mcp/asset/9bcaf45f-90f6-4b97-8ba9-c5ef01c37dab.png" alt="Person using a mobile dating app, researching trust and motivation">
+      <div class="cs-challenge-badge">
+        <span class="dot">
+          <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1" fill="#111" stroke="none"/></svg>
+        </span>
+        <span>Researching trust and motivation</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROJECT DNA ============ -->
+<section class="cs-dna">
+  <div class="wrap">
+    <div class="cs-dna-head"><span class="line"></span><span>Project DNA</span></div>
+    <div class="cs-dna-grid">
+      <div class="cs-dna-col">
+        <div><span class="col-label">01. Industry</span><div class="col-divider"></div></div>
+        <div>
+          <div class="cs-dna-industry">
+            <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-6.5-4.35-9-8.28C1.2 8.4 2.7 5.3 6 5.3c2 0 3.5 1.2 4.5 2.7 1-1.5 2.5-2.7 4.5-2.7 3.3 0 4.8 3.1 3 6.42C18.5 15.65 12 20 12 20Z"/></svg>
+            <h3>Dating / Social App</h3>
+          </div>
+          <p>Consumer digital product focused on connection, profile creation, and relationship discovery.</p>
+        </div>
+      </div>
+      <div class="cs-dna-col">
+        <div><span class="col-label">02. Scope</span><div class="col-divider"></div></div>
+        <div class="scope-text">End-to-end redesign of the first-time user experience, from account creation to early product exploration.</div>
+      </div>
+      <div class="cs-dna-col">
+        <div><span class="col-label">03. Methods</span><div class="col-divider"></div></div>
+        <div>
+          <div class="cs-dna-pills">
+            <span class="cs-dna-pill">Heuristic Analysis</span>
+            <span class="cs-dna-pill">Benchmark</span>
+            <span class="cs-dna-pill">Unmoderated Testing</span>
+            <span class="cs-dna-pill">AI-Assisted Design</span>
+            <span class="cs-dna-pill">User Interviews</span>
+            <span class="cs-dna-pill">Prototyping</span>
+          </div>
+          <p class="method-note">+ Session behavior analysis, front-end implementation, and stakeholder presentations.</p>
+        </div>
+      </div>
+      <div class="cs-dna-col cs-dna-stake">
+        <div><span class="col-label">04. Stakeholders</span><div class="col-divider"></div></div>
+        <div>
+          <h3>C-Suite, Product, Tech, Operations, CS</h3>
+          <div class="tag"><span class="dot"></span><span>Direct Board Reporting</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="cs-dna-foot"></div>
+  </div>
+</section>
+
+<!-- ============ LEADERSHIP DECISIONS ============ -->
+<section class="cs-leadership">
+  <div class="wrap">
+    <div class="cs-leadership-head">
+      <div class="cs-leadership-eyebrow">Leadership Decisions</div>
+      <h2>Decisions that moved the experience forward.</h2>
+      <p>Instead of using the extra time only to polish UI, I turned it into a focused product-design cycle: research, ideation, prototyping, testing, and stakeholder alignment.</p>
+    </div>
+    <div class="cs-leadership-grid">
+      <div class="cs-lead-card">
+        <div class="cs-lead-card-top">
+          <span class="cs-lead-badge">Strategic</span>
+          <h3>Reframe the problem beyond visual redesign</h3>
+          <p class="body">The original request was to improve the visual style, but the real opportunity was in the first-time user experience.</p>
+        </div>
+        <div class="cs-lead-card-foot"><span class="to-label">Trade-off</span><span class="to-text">Expanded the scope without losing speed.</span></div>
+      </div>
+      <div class="cs-lead-card">
+        <div class="cs-lead-card-top">
+          <span class="cs-lead-badge">Onboarding</span>
+          <h3>Make onboarding faster, but more intentional</h3>
+          <p class="body">The experience needed to reduce friction while still helping users create a meaningful profile.</p>
+        </div>
+        <div class="cs-lead-card-foot"><span class="to-label">Trade-off</span><span class="to-text">Simplified decisions without weakening profile quality.</span></div>
+      </div>
+      <div class="cs-lead-card">
+        <div class="cs-lead-card-top">
+          <span class="cs-lead-badge">Trust</span>
+          <h3>Build trust before asking for personal commitment</h3>
+          <p class="body">Users needed more clarity before sharing photos, preferences, and relationship intent.</p>
+        </div>
+        <div class="cs-lead-card-foot"><span class="to-label">Trade-off</span><span class="to-text">Added reassurance without making the flow feel heavy.</span></div>
+      </div>
+      <div class="cs-lead-card">
+        <div class="cs-lead-card-top">
+          <span class="cs-lead-badge">AI-Assisted</span>
+          <h3>Use AI to accelerate exploration</h3>
+          <p class="body">AI helped generate interface options, content alternatives, and journey ideas within a short timeline.</p>
+        </div>
+        <div class="cs-lead-card-foot"><span class="to-label">Trade-off</span><span class="to-text">Required strong UX judgment to filter what was useful.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ EVIDENCE & KEY INSIGHTS ============ -->
+<section class="cs-evidence">
+  <div class="wrap cs-evidence-inner">
+    <div>
+      <div class="cs-evidence-label">05 Evidence &amp; Key Insights</div>
+      <div class="cs-insight">
+        <span class="n">01</span>
+        <div>
+          <h5>First impressions shaped trust fast</h5>
+          <p>Small moments in the first-time experience influenced whether users felt safe enough to continue.</p>
+        </div>
+      </div>
+      <div class="cs-insight">
+        <span class="n">02</span>
+        <div>
+          <h5>Profile creation needed more guidance</h5>
+          <p>Users needed clearer cues to understand what to share and how each input improved discovery.</p>
+        </div>
+      </div>
+      <div class="cs-insight">
+        <span class="n">03</span>
+        <div>
+          <h5>Early exploration had to show value quickly</h5>
+          <p>The experience needed to help users understand the app's promise before asking for deeper commitment.</p>
+        </div>
+      </div>
+    </div>
+    <div class="cs-evidence-card">
+      <div class="head">Evidence used to make decisions</div>
+      <div class="cs-evidence-rows">
+        <div class="cs-evidence-row"><span class="name">Heuristic analysis</span><span class="desc">Identifying UX friction across the first-time journey</span></div>
+        <div class="cs-evidence-row"><span class="name">Benchmark</span><span class="desc">Understanding dating and social app onboarding patterns</span></div>
+        <div class="cs-evidence-row"><span class="name">User interviews</span><span class="desc">Exploring trust, motivation, and early expectations</span></div>
+        <div class="cs-evidence-row"><span class="name">Unmoderated testing</span><span class="desc">Validating comprehension and flow clarity</span></div>
+        <div class="cs-evidence-row"><span class="name">Prototype validation</span><span class="desc">Testing whether the new experience felt clearer and more valuable</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ UX LEAD OPERATING MODEL ============ -->
+<section class="cs-operating">
+  <div class="wrap">
+    <div class="cs-operating-head">
+      <span class="label">07 The UX Lead Operating Model</span>
+      <h2>From evidence to validated experience decisions.</h2>
+      <p>A focused design model connecting research signals, UX hypotheses, AI-assisted exploration, prototyping, validation, and stakeholder alignment.</p>
+    </div>
+    <div class="cs-steps">
+      <div class="cs-steps-line"></div>
+      <div class="cs-steps-grid">
+        <div class="cs-step">
+          <div class="cs-step-circle">01</div>
+          <h5>Evidence Mapping</h5>
+          <p>Used heuristic analysis, benchmark, interviews, and session behavior to identify the biggest first-time experience friction points.</p>
+        </div>
+        <div class="cs-step">
+          <div class="cs-step-circle">02</div>
+          <h5>Hypothesis Definition</h5>
+          <p>Translated user and business signals into UX hypotheses around trust, profile creation, onboarding clarity, and early exploration.</p>
+        </div>
+        <div class="cs-step highlight">
+          <div class="cs-step-circle">03</div>
+          <h5>AI-Assisted Exploration</h5>
+          <p>Used AI to accelerate interface directions, content options, and journey alternatives before selecting the strongest design paths.</p>
+        </div>
+        <div class="cs-step">
+          <div class="cs-step-circle">04</div>
+          <h5>Prototyping &amp; Validation</h5>
+          <p>Created and tested key onboarding moments to validate clarity, perceived value, and confidence before moving forward.</p>
+        </div>
+        <div class="cs-step">
+          <div class="cs-step-circle">05</div>
+          <h5>Alignment &amp; Iteration</h5>
+          <p>Shared findings and design rationale with stakeholders to prioritize improvements and define the next iteration cycle.</p>
+        </div>
+      </div>
+    </div>
+    <div class="cs-operating-foot">
+      <div class="cs-operating-tag">
+        <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+        <span>Research Signal</span>
+      </div>
+      <div class="cs-operating-tagdiv"></div>
+      <div class="cs-operating-tag">
+        <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 3v3M15 3v3M9 18v3M15 18v3M3 9h3M3 15h3M18 9h3M18 15h3"/></svg>
+        <span>AI-Assisted Exploration</span>
+      </div>
+      <div class="cs-operating-tagdiv"></div>
+      <div class="cs-operating-tag">
+        <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="m5 13 4 4 10-10"/></svg>
+        <span>Prototype Validation</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ THE SOLUTION - SHOWCASE ============ -->
+<section class="cs-solution">
+  <div class="cs-solution-inner">
+    <div class="cs-solution-head">
+      <span class="label">07 The Solution</span>
+      <h2>A clearer first-time experience for trust, profile creation, and discovery.</h2>
+      <p>The final solution redesigned the first-time user journey into a clearer, more guided experience that helped users understand the product, feel confident sharing information, and reach early exploration faster.</p>
+    </div>
+    <div class="cs-showcase-stage">
+      <!-- background scattered phone cards, back to front -->
+      <div class="cs-phone-card" style="left:9.5%;top:36.5%;width:15%;height:50.1%;opacity:.4;z-index:1;">
+        <img src="https://www.figma.com/api/mcp/asset/a50b84e0-739c-481c-b2e5-1f1e2c6f86b1.png" alt="Dating app welcome screen">
+      </div>
+      <div class="cs-phone-card" style="left:75.7%;top:31.3%;width:15%;height:50.1%;opacity:.4;z-index:1;">
+        <img src="https://www.figma.com/api/mcp/asset/d1b731ae-1778-47ae-859b-c1cbefab5e9e.png" alt="Dating app match celebration screen">
+      </div>
+      <div class="cs-phone-card" style="left:16%;top:16.9%;width:20%;height:66.9%;opacity:.7;z-index:2;">
+        <img src="https://www.figma.com/api/mcp/asset/9d872930-4b2c-4c9f-a65f-b1129bf34ae6.png" alt="Dating app account creation step">
+      </div>
+      <div class="cs-phone-card" style="left:64.1%;top:13.4%;width:20%;height:66.9%;opacity:.7;z-index:2;">
+        <img src="https://www.figma.com/api/mcp/asset/0a8c89fd-bc49-4193-85d4-2ba6c5510532.png" alt="Dating app photo upload gallery">
+      </div>
+      <div class="cs-phone-card" style="left:25%;top:20.9%;width:20%;height:66.9%;opacity:1;z-index:3;">
+        <img src="https://www.figma.com/api/mcp/asset/a460cdbf-7325-4019-9051-2a7f4caf51d5.png" alt="Dating app profile setup interest selection">
+      </div>
+      <div class="cs-phone-card" style="left:55%;top:19.2%;width:20%;height:66.9%;opacity:1;z-index:3;">
+        <img src="https://www.figma.com/api/mcp/asset/00fe24d1-7e54-40fe-a35e-deb8ad89b1ed.png" alt="Dating app relationship intent selection screen">
+      </div>
+      <!-- center phone -->
+      <div class="cs-phone-center">
+        <div class="cs-phone-center-inner">
+          <img src="https://www.figma.com/api/mcp/asset/0919f2d8-5d5a-4230-883e-a5306ef16d2e.png" alt="Premium dating app discovery screen">
+        </div>
+      </div>
+      <!-- floating labels -->
+      <span class="cs-showcase-badge" style="top:15%;left:15%;">Guided onboarding</span>
+      <span class="cs-showcase-badge" style="top:10%;left:58.7%;">Trust moments</span>
+      <span class="cs-showcase-badge" style="bottom:15%;left:30%;">Profile clarity</span>
+      <span class="cs-showcase-badge" style="bottom:20%;left:73.4%;">Early discovery</span>
+    </div>
+    <div class="cs-solution-buttons">
+      <a class="cs-sol-btn" href="#"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M9 8a3 3 0 1 1 3 3H9V8Z"/><path d="M9 11h3a3 3 0 1 1 0 6H9v-6Z"/><path d="M9 17a3 3 0 1 1-3-3h3v3Z"/><path d="M15 8a3 3 0 1 0-3 3v-3h3Z"/></svg>View Prototype Flow</a>
+    </div>
+    <div class="cs-solution-legend">
+      <div class="cs-legend-item"><span class="check"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="m5 13 4 4 10-10"/></svg></span><span>Trust-centered onboarding</span></div>
+      <div class="cs-legend-item"><span class="check"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="m5 13 4 4 10-10"/></svg></span><span>Guided profile creation</span></div>
+      <div class="cs-legend-item"><span class="check"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="m5 13 4 4 10-10"/></svg></span><span>AI-assisted exploration</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ VALIDATION & RESULTS ============ -->
+<section class="cs-validation">
+  <div class="cs-validation-head">
+    <span class="label">08 Validation &amp; Results</span>
+    <h2>Measurable Outcomes.</h2>
+  </div>
+  <div class="cs-val2-wrap">
+    <div class="cs-val2-dark">
+      <div>
+        <div>
+          <div class="cs-val2-metric-label">Metric:</div>
+          <div class="cs-val2-metric-value">80%+</div>
+          <div class="cs-val2-metric-sub">Completion</div>
+        </div>
+        <div style="margin-top:48px;">
+          <div class="cs-val2-support-label">Supporting metric:</div>
+          <div class="cs-val2-support-value">SUS 70+</div>
+        </div>
+      </div>
+      <div class="cs-val2-foot">
+        <div class="cs-val2-foot-label">First-Time Journey Performance</div>
+        <p>Improved first-time journey performance across onboarding, profile creation, and early product exploration.</p>
+      </div>
+    </div>
+    <div class="cs-val2-list">
+      <div class="cs-val2-card">
+        <h3>Clearer onboarding</h3>
+        <p>Users better understood the purpose of each step and what was expected from them.</p>
+      </div>
+      <div class="cs-val2-card">
+        <h3>Stronger profile quality</h3>
+        <p>The redesigned flow helped users provide more complete and useful profile information.</p>
+      </div>
+      <div class="cs-val2-card">
+        <h3>AI-assisted execution</h3>
+        <p>AI accelerated exploration, interface alternatives, content variations, and stakeholder storytelling.</p>
+      </div>
+    </div>
+  </div>
+  <div class="cs-val2-bottom">
+    <div class="cs-val2-impact">DIRECT PRODUCT<br>IMPACT</div>
+    <div class="cs-val2-validated">
+      <span>Validated<br>through:</span>
+      <div class="cs-val2-pills">
+        <span class="cs-val2-pill">Heuristic Analysis</span>
+        <span class="cs-val2-pill">Benchmark</span>
+        <span class="cs-val2-pill">User Interviews</span>
+        <span class="cs-val2-pill">Unmoderated Testing</span>
+        <span class="cs-val2-pill">Session Behavior</span>
+        <span class="cs-val2-pill">Prototype Validation</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ LEADERSHIP IMPACT & TAKEAWAYS ============ -->
+<section class="cs-limpact">
+  <div class="cs-limpact-head">
+    <div class="cs-limpact-eyebrow"><span>09 Leadership Impact &amp; Takeaways</span><span class="line"></span></div>
+    <h2>What changed beyond<br><em>the interface.</em></h2>
+  </div>
+  <div class="cs-limpact-cards">
+    <div class="cs-limpact-card">
+      <div>
+        <div class="cs-limpact-icon"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l5-5 4 4 8-9"/></svg></div>
+        <h3>First-Time Experience Strategy</h3>
+        <div class="subtitle">Strategic Product Design</div>
+      </div>
+      <div class="cs-limpact-list">
+        <div class="row"><span class="dot"></span><span>The redesign moved beyond visual polish into journey-level decision making</span></div>
+        <div class="row"><span class="dot"></span><span>Experiments replaced opinion-based decisions</span></div>
+        <div class="row"><span class="dot"></span><span>Onboarding became a guided experience, not just a sequence of required steps</span></div>
+      </div>
+    </div>
+    <div class="cs-limpact-card alt">
+      <div>
+        <div class="cs-limpact-icon"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="3"/><circle cx="17" cy="6" r="2.5"/><circle cx="17" cy="18" r="2.5"/><path d="M10.5 9.5 15 6.5M10.5 10.5 15 17.5"/></svg></div>
+        <h3>Profile creation was connected more clearly to discovery value</h3>
+        <div class="subtitle">Research &amp; Validation</div>
+      </div>
+      <div class="cs-limpact-list">
+        <div class="row"><span class="dot"></span><span>Faster Learning Model</span></div>
+        <div class="row"><span class="dot"></span><span>Research, benchmark, and testing helped prioritize the highest-impact moments</span></div>
+        <div class="row"><span class="dot"></span><span>Prototyping made ideas easier to validate before implementation</span></div>
+      </div>
+    </div>
+    <div class="cs-limpact-card">
+      <div>
+        <div class="cs-limpact-icon"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/><circle cx="12" cy="12" r="3"/></svg></div>
+        <h3>The team gained clearer evidence for product and design decisions</h3>
+        <div class="subtitle">Future-Proof Design Process</div>
+      </div>
+      <div class="cs-limpact-list">
+        <div class="row"><span class="dot"></span><span>AI-Enabled Workflow</span></div>
+        <div class="row"><span class="dot"></span><span>AI accelerated exploration, content alternatives, and UI directions</span></div>
+        <div class="row"><span class="dot"></span><span>Repetitive design exploration moved faster without replacing UX judgment</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="cs-limpact-quote">
+    <div class="cs-avatars">
+      <img src="https://www.figma.com/api/mcp/asset/87c88732-8839-42b0-9314-6ad5aa4b313a.png" alt="">
+      <img src="https://www.figma.com/api/mcp/asset/c0c5f143-e0d7-41d8-8057-32ac25de93c1.png" alt="">
+      <img src="https://www.figma.com/api/mcp/asset/16fce843-2f6d-4b41-bd3f-967574a0e1a7.png" alt="">
+    </div>
+    <div class="cs-limpact-quote-text">
+      <p>The biggest shift was not only a better flow &mdash; <em>it was a better way to use UX as a system for learning, deciding, and improving.</em></p>
+      <div class="cs-limpact-tagrow"><span class="line"></span><span>Executive Summary</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ NEXT CASE STUDY CTA ============ -->
+<section class="cs-next">
+  <div class="wrap cs-next-inner">
+    <div>
+      <div class="cs-next-label">Next Case Study</div>
+      <h3>Scaling DesignOps for<br>Global Insurance</h3>
+    </div>
+    <div class="cs-next-right">
+      <p>Ready to drive measurable results?</p>
+      <a class="cs-next-arrow" href="#" aria-label="Go to next case study">
+        <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer" id="footer">
+  <div class="footer-top">
+    <h2>Let's build UX that moves people, products, and business forward.</h2>
+    <div class="footer-links">
+      <a href="#">Email me</a>
+      <a href="https://www.linkedin.com/in/trianaricardo/?locale=en_US" target="_blank">LinkedIn</a>
+      <a href="https://drive.google.com/file/d/1j9Ro1nNsLiptuclmUUe1wdJqXiIUSekA/view?usp=drive_link" target="_blank">Download CV</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-brand">
+      <div class="footer-logo">ricardotriana</div>
+      <span class="footer-tagline">UX Lead Strategy &amp; Implementation</span>
+    </div>
+    <div class="footer-nav-col">
+      <nav class="footer-nav">
+        <a href="#">Impact</a>
+        <a href="#">Principles</a>
+        <a href="#">Framework</a>
+        <a href="#">Case Studies</a>
+        <a href="#">AI + UX</a>
+        <a href="#">About</a>
+      </nav>
+      <span class="footer-copy">© 2024 Ricardo Triana — All rights reserved.</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

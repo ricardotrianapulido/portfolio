@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ricardo Triana — UX Lead Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --yellow-hero:#f5cf26;
+    --yellow-bright:#fffe55;
+    --yellow-solid:#ffd500;
+    --black:#000000;
+    --near-black:#111111;
+    --heading-black:#1c1a1a;
+    --gray-700:#676565;
+    --gray-500:#9ca3af;
+    --gray-border:#e5e7eb;
+    --gray-bg:#f5f5f5;
+    --gray-bg-2:#f3f4f6;
+    --gray-bg-3:#fcfcfc;
+    --gray-divider:#d1d5db;
+    --max-w:1440px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Plus Jakarta Sans',sans-serif;
+    color:var(--near-black);
+    background:#fff;
+    -webkit-font-smoothing:antialiased;
+  }
+  img{display:block;max-width:100%;}
+  a{color:inherit;text-decoration:none;}
+  .wrap{max-width:var(--max-w);margin:0 auto;width:100%;}
+
+  /* ============ HOME NAVBAR (special: dark overlay bar, same-page anchors) ============ */
+  .home-navbar{background:var(--near-black);padding:24px 80px;display:flex;align-items:center;justify-content:space-between;gap:24px;}
+  .home-logo{background:#fff;color:#000;font-family:'Pacifico',cursive;font-size:20px;letter-spacing:-1px;padding:8px 24px;flex-shrink:0;}
+  .home-nav-links{display:flex;gap:40px;align-items:center;white-space:nowrap;}
+  .home-nav-links a{font-weight:700;font-size:14px;letter-spacing:1.4px;text-transform:uppercase;color:#fff;}
+  .home-nav-connect{display:flex;align-items:center;gap:8px;background:var(--yellow-bright);color:#000;font-weight:800;font-size:14px;letter-spacing:1.4px;text-transform:uppercase;padding:12px 32px;flex-shrink:0;}
+  @media (max-width:1100px){
+    .home-navbar{padding:20px 32px;flex-wrap:wrap;}
+    .home-nav-links{display:none;}
+  }
+
+  .section{width:100%;padding:128px 80px;}
+  .eyebrow{display:flex;align-items:center;gap:16px;margin-bottom:48px;}
+  .eyebrow .line{width:40px;height:2px;background:var(--gray-700);}
+  .eyebrow.on-dark .line{background:#fff;width:40px;height:2px;}
+  .eyebrow span{font-weight:700;font-size:12px;letter-spacing:1.2px;text-transform:uppercase;color:var(--gray-700);}
+  .eyebrow.on-dark span{color:#fff;}
+  .icon{width:24px;height:24px;stroke:var(--near-black);fill:none;stroke-width:1.5;}
+  .icon-lg{width:24px;height:24px;}
+
+  /* ============ HERO ============ */
+  .hero{background:var(--yellow-hero);width:100%;}
+  .hero-inner{
+    max-width:var(--max-w);
+    margin:0 auto;
+    padding:96px 80px;
+    min-height:900px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+  }
+  .hero-badge{
+    display:inline-block;
+    background:var(--black);
+    color:var(--yellow-hero);
+    font-weight:700;
+    font-size:14px;
+    letter-spacing:2.8px;
+    text-transform:uppercase;
+    padding:7px 16px;
+    margin-bottom:24px;
+  }
+  .hero h1{
+    font-weight:800;
+    font-size:92px;
+    line-height:0.95;
+    letter-spacing:-4.6px;
+    color:var(--heading-black);
+    max-width:900px;
+    margin-bottom:16px;
+  }
+  .hero-sub{
+    font-weight:500;
+    font-size:24px;
+    line-height:1.35;
+    color:#000;
+    opacity:0.8;
+    max-width:672px;
+    margin-bottom:24px;
+  }
+  .hero-buttons{display:flex;gap:24px;align-items:center;flex-wrap:wrap;margin-bottom:80px;}
+  .btn{
+    display:inline-flex;align-items:center;gap:16px;
+    font-weight:700;font-size:20px;
+    padding:24px 40px;
+    cursor:pointer;
+    white-space:nowrap;
+  }
+  .btn-primary{background:#fff;color:var(--black);}
+  .btn-outline{background:transparent;border:2px solid var(--black);color:var(--black);}
+  .btn .arrow{font-size:20px;}
+  .hero-stat{
+    display:flex;flex-direction:column;gap:0;
+    border-left:8px solid var(--black);
+    padding-left:32px;
+  }
+  .hero-stat .num{font-weight:800;font-size:60px;color:var(--black);line-height:1;}
+  .hero-stat .label{font-weight:700;font-size:18px;letter-spacing:1.8px;text-transform:uppercase;color:var(--black);margin-top:4px;}
+
+  .hero-bar{
+    background:var(--black);
+    width:100%;
+    padding:32px 80px;
+  }
+  .hero-bar-inner{
+    max-width:var(--max-w);margin:0 auto;
+    display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:24px;
+  }
+  .hero-bar-words{display:flex;gap:80px;flex-wrap:wrap;}
+  .hero-bar-words span{font-weight:700;font-size:36px;letter-spacing:-1.8px;color:rgba(255,255,255,0.4);}
+  .hero-bar-words span.active{color:#fff;}
+  .hero-bar-est{font-weight:700;font-size:16px;color:var(--yellow-hero);}
+
+  /* ============ IMPACT SNAPSHOT ============ */
+  .impact{background:var(--gray-bg);display:flex;justify-content:center;padding:48px;}
+  .impact-inner{max-width:var(--max-w);width:100%;display:flex;flex-direction:column;gap:48px;}
+  .impact h2{font-weight:800;font-size:60px;letter-spacing:-3px;color:var(--near-black);}
+  .impact-grid{
+    display:grid;
+    grid-template-columns:1.35fr 1fr 1fr 1fr;
+    grid-template-rows:1fr 1fr;
+    gap:24px;
+    min-height:720px;
+  }
+  .impact-card{padding:48px;display:flex;flex-direction:column;justify-content:space-between;}
+  .impact-card .big{font-weight:800;line-height:1;}
+  .impact-card p{color:var(--gray-700);font-size:18px;line-height:1.6;}
+  .card-17{grid-column:1;grid-row:1/3;background:#fff;border:1px solid var(--gray-border);}
+  .card-17 .big{font-style:italic;font-size:120px;letter-spacing:-6px;color:var(--near-black);}
+  .card-17 h3{font-weight:700;font-size:30px;color:var(--near-black);margin-top:16px;}
+  .card-91{grid-column:2/4;grid-row:1;background:var(--near-black);position:relative;overflow:hidden;padding:40px;}
+  .card-91 .big{color:var(--yellow-hero);font-size:96px;letter-spacing:-4.8px;}
+  .card-91 p{color:#fff;font-size:20px;max-width:320px;margin-top:16px;}
+  .card-35{grid-column:4;grid-row:1;background:var(--yellow-solid);align-items:center;text-align:center;padding:40px;}
+  .card-35 .big{font-size:72px;letter-spacing:-1.8px;color:var(--near-black);}
+  .card-35 p{font-weight:700;font-size:12px;letter-spacing:1.2px;color:var(--near-black);max-width:238px;margin-top:8px;}
+  .card-6{grid-column:2;grid-row:2;background:#fff;border:1px solid var(--gray-border);padding:40px;}
+  .card-6 .big{font-size:60px;color:var(--near-black);}
+  .card-6 p{font-size:14px;color:var(--gray-700);margin-top:0;}
+  .card-80{grid-column:3;grid-row:2;background:#fff;border:1px solid var(--gray-border);padding:40px;display:flex;flex-direction:column;justify-content:space-between;}
+  .card-80 .big{font-size:48px;color:var(--near-black);}
+  .card-80 .label{font-weight:700;font-size:12px;letter-spacing:1.2px;text-transform:uppercase;color:var(--gray-700);margin-top:16px;}
+  .card-80 .desc{font-size:14px;color:var(--gray-700);margin-top:4px;}
+  .card-75{grid-column:4;grid-row:2;background:var(--near-black);padding:32px;display:flex;flex-direction:column;justify-content:space-between;}
+  .card-75 .big{color:#fff;font-size:48px;}
+  .card-75 .label{font-weight:700;font-size:12px;letter-spacing:1.2px;text-transform:uppercase;color:var(--yellow-solid);margin-top:16px;}
+  .card-75 .desc{font-size:14px;color:var(--gray-500);margin-top:4px;}
+
+  .impact-foot{
+    border-top:1px solid var(--gray-divider);
+    padding-top:48px;
+    display:grid;
+    grid-template-columns:auto auto 1fr;
+    gap:32px;
+    align-items:flex-start;
+  }
+  .impact-foot .stat-num{font-weight:800;font-size:36px;color:var(--near-black);}
+  .impact-foot .stat-label{font-weight:700;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--gray-700);margin-top:8px;max-width:180px;}
+  .impact-foot .divider-col{border-left:1px solid var(--gray-divider);padding-left:32px;}
+  .impact-foot .quote{font-style:italic;font-size:14px;color:var(--gray-700);text-align:right;max-width:384px;justify-self:end;}
+
+  /* ============ PRINCIPLES (dark) ============ */
+  .principles{background:var(--near-black);color:#fff;}
+  .principles h2{font-weight:700;font-size:60px;letter-spacing:-1.5px;color:#fff;max-width:896px;line-height:1.05;margin-bottom:64px;}
+  .principles-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:32px;}
+  .principle-card{background:var(--black);border:1px solid rgba(255,255,255,0.1);padding:40px;min-height:300px;display:flex;flex-direction:column;justify-content:space-between;}
+  .principle-card.highlight{background:var(--yellow-bright);border:none;}
+  .principle-card .icon{stroke:#fff;margin-bottom:16px;}
+  .principle-card.highlight .icon{stroke:var(--near-black);}
+  .principle-card h4{font-weight:700;font-size:24px;color:#fff;margin-bottom:12px;}
+  .principle-card.highlight h4{color:var(--near-black);}
+  .principle-card p{font-size:14px;color:#fff;line-height:1.6;}
+  .principle-card.highlight p{color:rgba(0,0,0,0.6);}
+
+  /* ============ CASE STUDIES ============ */
+  .case-studies-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:48px;flex-wrap:wrap;gap:16px;}
+  .explore-all{display:flex;align-items:center;gap:8px;font-weight:700;font-size:14px;letter-spacing:1.4px;text-transform:uppercase;color:var(--near-black);}
+  .case-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;}
+  .case-card{display:block;}
+  .case-card img{width:100%;height:385px;object-fit:cover;}
+  .case-thumb{position:relative;background:var(--gray-bg-2);overflow:hidden;margin-bottom:16px;}
+  .case-tags{position:absolute;top:24px;left:24px;display:flex;gap:8px;}
+  .tag{font-weight:700;font-size:10px;letter-spacing:1px;text-transform:uppercase;padding:4px 12px;}
+  .tag.yellow{background:var(--yellow-bright);color:var(--black);}
+  .tag.dark{background:var(--near-black);color:#fff;}
+  .case-title-row{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;}
+  .case-title-row h3{font-weight:800;font-size:30px;letter-spacing:-0.75px;color:var(--near-black);}
+  .case-metric{text-align:right;flex-shrink:0;}
+  .case-metric .val{font-weight:700;font-size:24px;color:var(--near-black);}
+  .case-metric .lbl{font-weight:700;font-size:10px;letter-spacing:0.1px;text-transform:uppercase;color:var(--gray-700);margin-top:2px;}
+  .case-card p.desc{color:var(--gray-700);font-size:18px;line-height:1.55;margin:16px 0;max-width:512px;}
+  .case-cs{display:flex;align-items:center;gap:12px;}
+  .case-cs span{font-weight:700;font-size:14px;letter-spacing:1.4px;text-transform:uppercase;color:var(--near-black);}
+  .case-cs .line{width:32px;height:2px;background:var(--near-black);}
+
+  /* ============ AI SECTION ============ */
+  .ai-section{background:var(--gray-bg-3);border-top:1px solid var(--gray-bg-2);}
+  .ai-flex{display:flex;gap:80px;align-items:flex-start;}
+  .ai-left{width:400px;flex-shrink:0;display:flex;flex-direction:column;gap:32px;}
+  .ai-badge{display:inline-block;background:var(--near-black);color:var(--yellow-bright);font-weight:700;font-size:10px;letter-spacing:2px;text-transform:uppercase;padding:8px 16px;width:fit-content;}
+  .ai-left h2{font-weight:800;font-size:48px;letter-spacing:-2.4px;color:var(--near-black);line-height:1.25;}
+  .ai-left p{color:var(--gray-700);font-size:20px;line-height:1.4;}
+  .ai-link{display:flex;align-items:center;gap:16px;font-weight:800;font-size:16px;letter-spacing:1.6px;text-transform:uppercase;color:var(--near-black);}
+  .ai-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;flex:1;}
+  .ai-card{background:#fff;border:1px solid var(--gray-bg-2);box-shadow:0 1px 1px rgba(0,0,0,0.05);padding:32px;display:flex;flex-direction:column;gap:16px;min-height:206px;}
+  .ai-card .icon-box{width:48px;height:48px;display:flex;align-items:center;justify-content:center;}
+  .ai-card .icon-box.gray{background:var(--gray-bg);}
+  .ai-card h4{font-weight:700;font-size:20px;color:var(--near-black);}
+  .ai-card p{font-size:14px;color:var(--gray-700);line-height:1.4;}
+
+  /* ============ ABOUT ============ */
+  .about-flex{display:flex;gap:96px;align-items:center;}
+  .about-photo{flex:1;position:relative;border-radius:16px;overflow:hidden;background:var(--gray-bg-2);}
+  .about-photo img{width:100%;height:592px;object-fit:cover;}
+  .about-content{flex:1;display:flex;flex-direction:column;gap:32px;}
+  .about-content h2{font-weight:800;font-size:60px;letter-spacing:-1.5px;color:var(--near-black);line-height:1.1;}
+  .about-content p.body{color:var(--gray-700);font-size:20px;line-height:1.6;}
+  .about-quote{border-left:4px solid var(--yellow-bright);padding-left:24px;font-style:italic;font-size:20px;color:var(--gray-700);line-height:1.6;}
+  .about-tags{display:grid;grid-template-columns:1fr 1fr;gap:24px 32px;}
+  .about-tag{display:flex;align-items:center;gap:12px;}
+  .about-tag .dot{width:8px;height:8px;border-radius:9999px;background:var(--yellow-bright);}
+  .about-tag span{font-weight:700;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--near-black);}
+
+  /* ============ FRAMEWORK ============ */
+  .framework{background:var(--gray-bg);}
+  .framework h2{font-weight:800;font-size:48px;letter-spacing:-2.4px;color:var(--near-black);margin-bottom:64px;max-width:1100px;}
+  .framework-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:16px;}
+  .fw-step{display:flex;flex-direction:column;gap:24px;}
+  .fw-step .num{font-weight:700;font-size:12px;letter-spacing:1.2px;color:var(--gray-700);}
+  .fw-step .num.active{display:inline-block;background:var(--black);color:var(--yellow-bright);padding:2px 8px;width:fit-content;}
+  .fw-step h5{font-weight:800;font-size:18px;color:var(--near-black);}
+  .fw-step p{font-size:12px;color:var(--gray-700);line-height:1.4;}
+
+  /* ============ FOOTER ============ */
+  .footer{background:var(--yellow-bright);padding:128px 80px 80px;display:flex;flex-direction:column;gap:128px;}
+  .footer-top{max-width:896px;display:flex;flex-direction:column;gap:48px;}
+  .footer-top h2{font-weight:800;font-size:52px;letter-spacing:-2px;color:#000;line-height:1.05;}
+  .footer-links{display:flex;gap:32px;flex-wrap:wrap;}
+  .footer-links a{font-weight:800;font-size:24px;color:#000;text-decoration:underline;text-underline-offset:4px;}
+  .footer-bottom{border-top:1px solid rgba(0,0,0,0.1);padding-top:80px;display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:32px;}
+  .footer-brand{display:flex;flex-direction:column;gap:24px;}
+  .footer-logo{background:var(--black);color:#fff;font-family:'Pacifico',cursive;font-size:32px;text-align:center;padding:16px 32px;}
+  .footer-tagline{font-weight:700;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:rgba(0,0,0,0.6);}
+  .footer-nav-col{display:flex;flex-direction:column;align-items:flex-end;gap:24px;}
+  .footer-nav{display:flex;gap:48px;flex-wrap:wrap;}
+  .footer-nav a{font-weight:800;font-size:14px;letter-spacing:1.4px;text-transform:uppercase;color:#000;}
+  .footer-copy{font-size:12px;color:rgba(0,0,0,0.4);}
+
+  @media (max-width:1100px){
+    .section{padding:80px 32px;}
+    .hero-inner{padding:64px 32px;}
+    .hero h1{font-size:56px;letter-spacing:-2px;}
+    .impact-grid{grid-template-columns:1fr;grid-template-rows:auto;min-height:0;gap:24px;}
+    .card-17,.card-91,.card-35,.card-6,.card-80,.card-75{grid-column:1;grid-row:auto;}
+    .impact-foot{grid-template-columns:1fr;}
+    .impact-foot .divider-col{border-left:none;padding-left:0;border-top:1px solid var(--gray-divider);padding-top:32px;}
+    .principles-grid{grid-template-columns:1fr;}
+    .case-grid{grid-template-columns:1fr;}
+    .ai-flex{flex-direction:column;}
+    .ai-left{width:100%;}
+    .ai-grid{grid-template-columns:1fr;}
+    .about-flex{flex-direction:column;}
+    .framework-grid{grid-template-columns:1fr 1fr;}
+    .impact-foot .quote{text-align:left;justify-self:start;}
+    .footer-top h2{font-size:36px;letter-spacing:-1px;}
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ HOME NAVBAR ============ -->
+<div class="home-navbar">
+  <a class="home-logo" href="#">ricardotriana</a>
+  <nav class="home-nav-links">
+    <a href="#impact">Impact</a>
+    <a href="#principles">Principles</a>
+    <a href="#case-studies">Case Studies</a>
+    <a href="#ai-ux">AI + UX</a>
+    <a href="#about">About</a>
+    <a href="#framework">Framework</a>
+  </nav>
+  <a class="home-nav-connect" href="#footer">Connect <span class="arrow">↗</span></a>
+</div>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="hero-inner">
+    <span class="hero-badge">UX LEAD • PRODUCT STRATEGY</span>
+    <h1>I lead UX to transform products, teams, and organizations.</h1>
+    <p class="hero-sub">I connect research, strategy, and execution to turn complex product challenges into measurable outcomes.</p>
+    <div class="hero-buttons">
+      <a class="btn btn-primary" href="#case-studies">View Case Studies <span class="arrow">↗</span></a>
+      <a class="btn btn-outline" href="#footer">Let's Connect <span class="arrow">↗</span></a>
+    </div>
+    <div class="hero-stat">
+      <span class="num">+237%</span>
+      <span class="label">Conversion Increase</span>
+    </div>
+  </div>
+  <div class="hero-bar">
+    <div class="hero-bar-inner">
+      <div class="hero-bar-words">
+        <span>STRATEGY</span>
+        <span class="active">DESIGN</span>
+        <span>RESEARCH</span>
+        <span>GROWTH</span>
+      </div>
+      <span class="hero-bar-est">EST. 2012</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ IMPACT SNAPSHOT ============ -->
+<section class="impact" id="impact">
+  <div class="impact-inner">
+    <div class="eyebrow"><span class="line"></span><h2>Impact Snapshot</h2></div>
+    <div class="impact-grid">
+      <div class="impact-card card-17">
+        <div>
+          <div class="big">17</div>
+          <h3>Years industry<br>experience</h3>
+        </div>
+        <p>Across Banking, FinTech &amp; Tech sectors globally.</p>
+      </div>
+      <div class="impact-card card-91">
+        <div class="big">91%</div>
+        <p>Onboarding conversion achieved for complex payment flows.</p>
+      </div>
+      <div class="impact-card card-35">
+        <div class="big">+35%</div>
+        <p>CONVERSION BOOST IN EARLY FUNNEL FOR FINANCIAL PRODUCTS</p>
+      </div>
+      <div class="impact-card card-6">
+        <div class="big">6+</div>
+        <p>Years leading cross-functional design teams and strategy.</p>
+      </div>
+      <div class="impact-card card-80">
+        <div class="big">80+</div>
+        <div>
+          <div class="label">UX Research</div>
+          <div class="desc">Studies conducted to validate strategic roadmaps.</div>
+        </div>
+      </div>
+      <div class="impact-card card-75">
+        <div class="big">75+</div>
+        <div>
+          <div class="label">SUS Score (avg)</div>
+          <div class="desc">Consistently exceeding industry benchmarks.</div>
+        </div>
+      </div>
+    </div>
+    <div class="impact-foot">
+      <div>
+        <div class="stat-num">+11</div>
+        <div class="stat-label">NPS Points Increase in less than 90 days</div>
+      </div>
+      <div class="divider-col">
+        <div class="stat-num">+15%</div>
+        <div class="stat-label">Design System Adoption Rate</div>
+      </div>
+      <p class="quote">"Strong leaders prove impact where it matters: user experience, product performance, and team maturity"</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PRINCIPLES ============ -->
+<section class="section principles" id="principles">
+  <div class="eyebrow on-dark"><span class="line"></span><span>Leadership Vision</span></div>
+  <h2>Principles that drive my approach to design leadership.</h2>
+  <div class="principles-grid">
+    <div class="principle-card">
+      <svg class="icon" viewBox="0 0 24 24"><circle cx="9" cy="7" r="3.2"/><path d="M4 20c0-3 2.5-5 5-5s5 2 5 5"/><path d="M17 12.5c1-1 1-2.3 0-3.2-.7-.6-1.7-.6-2.4 0"/></svg>
+      <div>
+        <h4>People First</h4>
+        <p>We design for real people, not just users in dashboards.</p>
+      </div>
+    </div>
+    <div class="principle-card">
+      <svg class="icon" viewBox="0 0 24 24"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8Z" stroke-linejoin="round"/></svg>
+      <div>
+        <h4>Outcomes &gt; Outputs</h4>
+        <p>UX work should be measured by the impact and change it creates.</p>
+      </div>
+    </div>
+    <div class="principle-card">
+      <svg class="icon" viewBox="0 0 24 24"><path d="M9 2h6M10 2v6l-5.5 9.5A2 2 0 0 0 6.2 21h11.6a2 2 0 0 0 1.7-3.5L14 8V2"/><path d="M7 15h10"/></svg>
+      <div>
+        <h4>Data-Driven</h4>
+        <p>Research and metrics guide decisions, priorities, and trade-offs.</p>
+      </div>
+    </div>
+    <div class="principle-card highlight">
+      <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8.5 14.5s1.2 2 3.5 2 3.5-2 3.5-2" stroke-linecap="round"/><path d="M9 9.5h.01M15 9.5h.01" stroke-linecap="round" stroke-width="2.2"/></svg>
+      <div>
+        <h4>Challenge Limits</h4>
+        <p>Strong UX leadership questions assumptions and pushes teams forward.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CASE STUDIES ============ -->
+<section class="section" id="case-studies">
+  <div class="case-studies-head">
+    <div class="eyebrow" style="margin-bottom:0;"><span class="line"></span><span>Selected Case Studies</span></div>
+    <a class="explore-all" href="extra-projects-page-1.html">Explore All →</a>
+  </div>
+  <div class="case-grid">
+    <a class="case-card" href="desktop-case-study-fundo.html">
+      <div class="case-thumb">
+        <img src="https://www.figma.com/api/mcp/asset/9c4fdd01-36a3-4eb2-97c4-17dc2af41ae3.png" alt="Fintech Conversion Focus">
+        <div class="case-tags">
+          <span class="tag yellow">Origination</span>
+          <span class="tag dark">Fintech</span>
+        </div>
+      </div>
+      <div class="case-title-row">
+        <h3>Fintech Conversion Focus</h3>
+        <div class="case-metric"><div class="val">+19%</div><div class="lbl">Conversion</div></div>
+      </div>
+      <p class="desc">Redesigning the entire origination and management ecosystem for a seamless, cross-platform merchant experience.</p>
+      <div class="case-cs"><span>Case Study</span><span class="line"></span></div>
+    </a>
+
+    <a class="case-card" href="desktop-case-study-dating-app.html">
+      <div class="case-thumb">
+        <img src="https://www.figma.com/api/mcp/asset/ac1debe5-d973-46d4-a1d2-ef4c45b254e1.png" alt="Dating App Onboarding">
+        <div class="case-tags">
+          <span class="tag yellow">Onboarding</span>
+          <span class="tag dark">Growth</span>
+        </div>
+      </div>
+      <div class="case-title-row">
+        <h3>Dating App Onboarding</h3>
+        <div class="case-metric"><div class="val">91%</div><div class="lbl">Completion Rate</div></div>
+      </div>
+      <p class="desc">Transforming first-use friction into a trust-building journey that maximized user retention.</p>
+      <div class="case-cs"><span>Case Study</span><span class="line"></span></div>
+    </a>
+
+    <a class="case-card" href="desktop-case-study-designops-itau.html">
+      <div class="case-thumb">
+        <img src="https://www.figma.com/api/mcp/asset/0360dd73-9942-4123-b049-e88b1747b824.png" alt="Scaling UX at Itaú">
+        <div class="case-tags">
+          <span class="tag yellow">Design Ops</span>
+          <span class="tag dark">Enterprise</span>
+        </div>
+      </div>
+      <div class="case-title-row">
+        <h3>Scaling UX at Itaú</h3>
+        <div class="case-metric"><div class="val">+15%</div><div class="lbl">System Adoption</div></div>
+      </div>
+      <p class="desc">Establishing a unified design language and governance model for Latin America's largest bank.</p>
+      <div class="case-cs"><span>Case Study</span><span class="line"></span></div>
+    </a>
+
+    <a class="case-card" href="desktop-case-study-credit-card-insurance.html">
+      <div class="case-thumb">
+        <img src="https://www.figma.com/api/mcp/asset/05f45bab-6287-4412-adbe-08a32def7d76.png" alt="Credit Card Insurance">
+        <div class="case-tags">
+          <span class="tag yellow">Insurance</span>
+          <span class="tag dark">Service Design</span>
+        </div>
+      </div>
+      <div class="case-title-row">
+        <h3>Credit Card Insurance</h3>
+        <div class="case-metric"><div class="val">+11</div><div class="lbl">CSAT Points</div></div>
+      </div>
+      <p class="desc">Modernizing complex insurance claims through user-centric digital transformation.</p>
+      <div class="case-cs"><span>Case Study</span><span class="line"></span></div>
+    </a>
+  </div>
+</section>
+
+<!-- ============ AI SECTION ============ -->
+<section class="section ai-section" id="ai-ux">
+  <div class="ai-flex">
+    <div class="ai-left">
+      <span class="ai-badge">New Frontier</span>
+      <h2>AI-Accelerated UX Leadership</h2>
+      <p>I use AI to speed up and improve research synthesis, exploration, prototyping, and stakeholder communication without replacing UX judgment.</p>
+      <span class="ai-link">Explore AI + UX →</span>
+    </div>
+    <div class="ai-grid">
+      <div class="ai-card">
+        <div class="icon-box"><svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.5 3.5 5.5 3.5 9s-1 6.5-3.5 9c-2.5-2.5-3.5-5.5-3.5-9s1-6.5 3.5-9Z"/></svg></div>
+        <h4>Research Synthesis</h4>
+        <p>Turning qualitative and quantitative inputs into clearer patterns and opportunities.</p>
+      </div>
+      <div class="ai-card">
+        <div class="icon-box gray"><svg class="icon" viewBox="0 0 24 24"><path d="m9 8-5 4 5 4M15 8l5 4-5 4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h4>Rapid Wireframing</h4>
+        <p>Using generative tools to explore divergent layouts and validate concepts in real-time with real users.</p>
+      </div>
+      <div class="ai-card">
+        <div class="icon-box"><svg class="icon" viewBox="0 0 24 24"><path d="M4 12c3-6 13-6 16 0M4 12c3 6 13 6 16 0" stroke-linecap="round"/><circle cx="12" cy="12" r="2"/></svg></div>
+        <h4>Journey Mapping</h4>
+        <p>Structuring complex experiences, dependencies, and operational touchpoints.</p>
+      </div>
+      <div class="ai-card">
+        <div class="icon-box gray"><svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 14s1.5 2.5 4 2.5 4-2.5 4-2.5" stroke-linecap="round"/><path d="M9 9.5h.01M15 9.5h.01" stroke-linecap="round" stroke-width="2.2"/></svg></div>
+        <h4>Strategic Storytelling</h4>
+        <p>Turning research, decisions, and outcomes into clearer narratives for stakeholders.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ABOUT ============ -->
+<section class="section" id="about">
+  <div class="about-flex">
+    <div class="about-photo">
+      <img src="https://www.figma.com/api/mcp/asset/d729b007-6e9a-4a70-bead-e06c7f5def6c.png" alt="Ricardo Triana">
+    </div>
+    <div class="about-content">
+      <div class="eyebrow" style="margin-bottom:0;"><span class="line"></span><span>About Me</span></div>
+      <h2>Leadership is an endurance sport.</h2>
+      <p class="body">When I am not leading UX, I am probably on my bike, building side projects, or spending time with my wife and son.</p>
+      <p class="body">Cycling reminds me that progress comes from direction, discipline, adaptation, and consistency — the same mindset I bring to product and design teams.</p>
+      <div class="about-quote">"Great design, the kind that really converts, does not happen in a rush. It is built through collaboration, empathy, and a relentless commitment to the goal."</div>
+      <div class="about-tags">
+        <div class="about-tag"><span class="dot"></span><span>Road Cycling</span></div>
+        <div class="about-tag"><span class="dot"></span><span>Side Projects</span></div>
+        <div class="about-tag"><span class="dot"></span><span>Continuous Learning</span></div>
+        <div class="about-tag"><span class="dot"></span><span>Family First</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FRAMEWORK ============ -->
+<section class="section framework" id="framework">
+  <div class="eyebrow"><span class="line"></span><span>The Framework</span></div>
+  <h2>A disciplined process for unpredictable challenges.</h2>
+  <div class="framework-grid">
+    <div class="fw-step"><span class="num">01</span><h5>Research</h5><p>Understand users, context, and friction.</p></div>
+    <div class="fw-step"><span class="num">02</span><h5>Data Analysis</h5><p>Identify patterns, gaps, and opportunities.</p></div>
+    <div class="fw-step"><span class="num">03</span><h5>Strategy</h5><p>Define priorities, hypotheses, and success metrics.</p></div>
+    <div class="fw-step"><span class="num active">04</span><h5>Prototyping</h5><p>Make ideas tangible and testable.</p></div>
+    <div class="fw-step"><span class="num">05</span><h5>Validation</h5><p>Reduce risk through evidence.</p></div>
+    <div class="fw-step"><span class="num">06</span><h5>Alignment</h5><p>Connect product, business, and technology.</p></div>
+    <div class="fw-step"><span class="num">07</span><h5>Execution</h5><p>Measure outcomes and improve continuously.</p></div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer" id="footer">
+  <div class="footer-top">
+    <h2>Let's build UX that moves people, products, and business forward.</h2>
+    <div class="footer-links">
+      <a href="mailto:rtriana86@gmail.com">Email me</a>
+      <a href="https://www.linkedin.com/in/trianaricardo/?locale=en_US" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://drive.google.com/file/d/1j9Ro1nNsLiptuclmUUe1wdJqXiIUSekA/view?usp=drive_link" target="_blank" rel="noopener">Download CV</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-brand">
+      <div class="footer-logo">ricardotriana</div>
+      <span class="footer-tagline">UX Lead Strategy &amp; Implementation</span>
+    </div>
+    <div class="footer-nav-col">
+      <nav class="footer-nav">
+        <a href="#impact">Impact</a>
+        <a href="#principles">Principles</a>
+        <a href="#framework">Framework</a>
+        <a href="#case-studies">Case Studies</a>
+        <a href="#ai-ux">AI + UX</a>
+        <a href="#about">About</a>
+      </nav>
+      <span class="footer-copy">© 2024 Ricardo Triana — All rights reserved.</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

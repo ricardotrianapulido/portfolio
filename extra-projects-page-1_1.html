@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Extra Projects — Ricardo Triana</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --yellow-hero:#f5cf26;
+    --yellow-bright:#fffe55;
+    --yellow-solid:#ffd500;
+    --amber:#eab308;
+    --black:#000000;
+    --near-black:#111111;
+    --heading-black:#141f39;
+    --gray-700:#676565;
+    --gray-500:#9ca3af;
+    --gray-border:#e5e7eb;
+    --gray-bg:#f5f5f5;
+    --gray-bg-2:#f3f4f6;
+    --gray-bg-3:#f9f9f9;
+    --gray-divider:#d1d5db;
+    --max-w:1440px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Plus Jakarta Sans',sans-serif;
+    color:var(--near-black);
+    background:#fff;
+    -webkit-font-smoothing:antialiased;
+  }
+  img{display:block;max-width:100%;}
+  a{color:inherit;text-decoration:none;}
+  .wrap{max-width:var(--max-w);margin:0 auto;width:100%;}
+
+  /* ============ NAVBAR (shared across all pages) ============ */
+  .cs-navbar{background:var(--yellow-bright);padding:32px 80px 0;}
+  .cs-navbar-row{display:flex;align-items:center;justify-content:space-between;padding-bottom:32px;position:relative;}
+  .cs-logo{font-family:'Pacifico',cursive;font-size:32px;color:#000;}
+  .cs-nav-links{display:flex;gap:32px;align-items:center;position:absolute;left:50%;transform:translateX(-50%);}
+  .cs-nav-links a{font-size:18px;color:#000;white-space:nowrap;}
+  .cs-nav-links a.active{font-weight:700;}
+  .cs-social{display:flex;align-items:center;gap:20px;}
+  .cs-social a{display:flex;align-items:center;justify-content:center;color:#000;}
+  .cs-navbar-divider{height:1px;background:rgba(0,0,0,0.15);width:100%;}
+  @media (max-width:1100px){
+    .cs-navbar{padding:24px 32px 0;}
+    .cs-nav-links{display:none;}
+  }
+  .icon{stroke:currentColor;fill:none;stroke-width:1.6;}
+
+  /* ============ HEADER ============ */
+  .ep-header{background:var(--yellow-bright);padding:32px 60px;}
+  .ep-header-row{display:flex;align-items:center;justify-content:space-between;padding-bottom:24px;border-bottom:1px solid #000;flex-wrap:wrap;gap:16px;}
+  .ep-logo{font-family:'Pacifico',cursive;font-size:32px;color:#000;}
+  .ep-nav{display:flex;gap:50px;align-items:center;flex-wrap:wrap;}
+  .ep-nav a{font-size:18px;color:#000;}
+  .ep-nav a.active{font-weight:700;text-decoration:underline;text-underline-offset:6px;}
+
+  /* ============ INTRO / HERO SECTION ============ */
+  .ep-intro{background:var(--yellow-bright);padding:80px 60px 128px;}
+  .ep-intro-top{display:flex;justify-content:space-between;align-items:flex-end;gap:48px;flex-wrap:wrap;margin-bottom:64px;}
+  .ep-intro-left{max-width:900px;}
+  .ep-tags{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:32px;}
+  .ep-tag-dark{background:#111;color:#fff;font-weight:700;font-size:14px;letter-spacing:1.4px;text-transform:uppercase;padding:8px 16px;}
+  .ep-intro h1{font-weight:800;font-size:84px;letter-spacing:-4.2px;line-height:0.95;color:#111;}
+  .ep-intro-right{display:flex;flex-direction:column;align-items:flex-end;gap:24px;max-width:480px;}
+  .ep-intro-right svg{width:96px;height:96px;stroke:#111;stroke-width:1.5;}
+  .ep-intro-right p{font-size:20px;font-weight:500;line-height:1.4;color:#111;text-align:right;}
+  .ep-stat-row{display:flex;border:1px solid rgba(0,0,0,0.05);width:100%;flex-wrap:wrap;}
+  .ep-stat-card{flex:1 1 300px;padding:40px;display:flex;flex-direction:column;gap:8px;min-height:214px;}
+  .ep-stat-card.dark{background:#111;}
+  .ep-stat-card.light{background:#fff;}
+  .ep-stat-card .label{font-weight:700;font-size:14px;letter-spacing:1.4px;text-transform:uppercase;}
+  .ep-stat-card.dark .label{color:var(--yellow-bright);}
+  .ep-stat-card.light .label{color:var(--gray-700);}
+  .ep-stat-card .value{font-weight:700;font-size:60px;line-height:1;color:#111;}
+  .ep-stat-card.dark .value{color:var(--yellow-bright);}
+  .ep-stat-card p.desc{font-size:18px;}
+  .ep-stat-card.dark p.desc{color:#fff;}
+  .ep-stat-card.light p.desc{color:var(--gray-700);}
+
+  /* ============ EXECUTIVE SUMMARY ============ */
+  .ep-exec{background:#fff;padding:128px 60px;}
+  .ep-exec-inner{display:flex;gap:64px;align-items:flex-start;flex-wrap:wrap;}
+  .ep-eyebrow{display:flex;align-items:center;gap:16px;flex-shrink:0;width:420px;max-width:100%;}
+  .ep-eyebrow .line{width:48px;height:1px;background:var(--gray-700);flex-shrink:0;}
+  .ep-eyebrow span{font-weight:700;font-size:16px;letter-spacing:1.4px;text-transform:uppercase;color:var(--gray-700);}
+  .ep-exec-statement{font-weight:500;font-size:30px;line-height:1.37;color:var(--heading-black);flex:1;min-width:320px;}
+
+  /* ============ PROJECT SECTIONS ============ */
+  .ep-project{padding:128px 60px;}
+  .ep-project-inner{display:flex;gap:80px;align-items:center;max-width:1440px;margin:0 auto;flex-wrap:wrap;}
+  .ep-project-inner.reverse{flex-direction:row-reverse;}
+  .ep-project-text{flex:1 1 480px;display:flex;flex-direction:column;gap:40px;justify-content:center;}
+  .ep-project-copy{display:flex;flex-direction:column;gap:24px;}
+  .ep-project-label{font-weight:700;font-size:14px;letter-spacing:1.4px;text-transform:uppercase;}
+  .ep-project-label.on-light{color:var(--amber);}
+  .ep-project-label.on-dark{color:var(--yellow-bright);}
+  .ep-project h2{font-weight:700;font-size:60px;line-height:1.25;}
+  .ep-project h2.on-light{color:#111;}
+  .ep-project h2.on-dark{color:#fff;}
+  .ep-project-desc{font-size:20px;line-height:1.625;}
+  .ep-project-desc.on-light{color:var(--gray-700);}
+  .ep-project-desc.on-dark{color:var(--gray-500);}
+  .ep-project-media{flex:1 1 480px;height:600px;border-radius:32px;overflow:hidden;position:relative;background:#111;}
+  .ep-project-media img{width:100%;height:100%;object-fit:cover;}
+
+  /* project 1 — dark media w/ gradient + caption */
+  .ep-media-caption::after{content:"";position:absolute;inset:0;background:linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0) 55%);}
+  .ep-media-caption .cap{position:absolute;left:40px;bottom:40px;z-index:2;display:flex;flex-direction:column;gap:8px;}
+  .ep-media-caption .cap .tag{font-weight:700;font-size:14px;letter-spacing:1.4px;color:var(--yellow-bright);}
+  .ep-media-caption .cap .title{font-weight:600;font-size:24px;color:#fff;}
+  .ep-media-caption img{opacity:0.8;}
+
+  /* impact highlights box (project 1) */
+  .ep-highlight-box{background:rgba(255,255,255,0.5);border-left:4px solid var(--yellow-bright);padding:32px;display:flex;flex-direction:column;gap:16px;}
+  .ep-highlight-head{display:flex;gap:12px;align-items:center;}
+  .ep-highlight-head svg{width:24px;height:24px;stroke:#111;}
+  .ep-highlight-head span{font-weight:700;font-size:20px;color:#111;}
+  .ep-highlight-list{display:flex;flex-direction:column;gap:12px;}
+  .ep-highlight-item{display:flex;gap:8px;align-items:baseline;font-size:18px;}
+  .ep-highlight-item .n{font-weight:700;color:#111;flex-shrink:0;}
+  .ep-highlight-item .t{color:var(--gray-700);line-height:1.55;}
+
+  /* project 2 — dark bg, image left with pill badge */
+  .ep-media-pill{border:1px solid rgba(255,255,255,0.1);background:#111;}
+  .ep-pill-badge{position:absolute;left:40px;bottom:40px;z-index:2;background:var(--yellow-bright);border-radius:9999px;padding:16px;display:flex;align-items:center;gap:16px;}
+  .ep-pill-badge svg{width:32px;height:32px;stroke:#111;flex-shrink:0;}
+  .ep-pill-badge span{font-weight:700;font-size:18px;color:#111;white-space:nowrap;padding-right:8px;}
+  .ep-evidence-box{background:rgba(255,255,255,0.05);border-left:4px solid var(--yellow-bright);padding:32px;display:flex;flex-direction:column;gap:16px;}
+  .ep-evidence-box .head{font-weight:700;font-size:14px;letter-spacing:1.4px;text-transform:uppercase;color:var(--yellow-bright);}
+  .ep-evidence-list{display:flex;flex-direction:column;gap:12px;}
+  .ep-evidence-list p{font-size:18px;color:#d1d5db;line-height:1.55;}
+
+  /* project 3 — phone mock */
+  .ep-stat-mini-row{display:flex;gap:32px;flex-wrap:wrap;}
+  .ep-stat-mini{background:#f9f9f9;border-radius:16px;padding:24px;flex:1 1 260px;display:flex;flex-direction:column;gap:8px;}
+  .ep-stat-mini h4{font-weight:700;font-size:24px;color:#111;}
+  .ep-stat-mini p{font-size:16px;color:var(--gray-700);line-height:1.5;}
+
+  /* project 4 — duotone photo w/ numbered list */
+  .ep-duotone{position:relative;}
+  .ep-duotone img{filter:grayscale(1) contrast(1.05);opacity:0.85;}
+  .ep-duotone::after{content:"";position:absolute;inset:0;background:var(--yellow-bright);opacity:0.28;mix-blend-mode:multiply;}
+  .ep-numbered-list{display:flex;flex-direction:column;gap:16px;}
+  .ep-numbered-item{display:flex;gap:16px;align-items:center;}
+  .ep-numbered-item .num{background:var(--yellow-bright);color:#111;font-weight:700;font-size:16px;width:40px;height:40px;border-radius:9999px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .ep-numbered-item span.t{font-weight:700;font-size:18px;color:#111;}
+
+  /* project 5 — yellow stat card */
+  .ep-yellow-card{background:var(--yellow-bright);border-radius:32px;padding:32px;display:flex;flex-direction:column;gap:24px;}
+  .ep-yellow-card-head{display:flex;align-items:center;justify-content:space-between;}
+  .ep-yellow-card-head h4{font-weight:700;font-size:24px;color:#000;}
+  .ep-yellow-card-head svg{width:40px;height:40px;stroke:#111;}
+  .ep-yellow-stats{display:flex;gap:48px;flex-wrap:wrap;}
+  .ep-yellow-stat .value{font-weight:800;font-size:36px;color:#111;}
+  .ep-yellow-stat .label{font-weight:700;font-size:14px;letter-spacing:0.7px;text-transform:uppercase;color:rgba(17,17,17,0.6);margin-top:4px;}
+  .ep-media-plain{border:1px solid rgba(0,0,0,0.05);background:#f9f9f9;}
+  .ep-media-accent{position:absolute;bottom:32px;right:32px;width:34%;aspect-ratio:3/4;border-radius:16px;overflow:hidden;border:4px solid #fff;box-shadow:0 20px 40px -12px rgba(0,0,0,0.4);z-index:3;}
+  .ep-media-accent img{width:100%;height:100%;object-fit:cover;}
+
+  /* ============ IMPACT PATTERNS ============ */
+  .ep-patterns{background:#111;padding:128px 60px;}
+  .ep-patterns-inner{max-width:1440px;margin:0 auto;}
+  .ep-patterns-head{display:flex;align-items:center;gap:24px;margin-bottom:64px;}
+  .ep-patterns-head .line{width:48px;height:1px;background:var(--gray-700);}
+  .ep-patterns-head span{font-weight:700;font-size:20px;letter-spacing:2.8px;text-transform:uppercase;color:var(--gray-700);}
+  .ep-patterns h2{font-weight:800;font-size:60px;letter-spacing:-1.5px;color:#fff;margin-bottom:48px;}
+  .ep-pattern-grid{display:flex;gap:32px;flex-wrap:wrap;}
+  .ep-pattern-card{flex:1 1 320px;min-height:450px;border-radius:40px;padding:40px;display:flex;flex-direction:column;justify-content:space-between;}
+  .ep-pattern-card.dark{background:#1a1a1a;}
+  .ep-pattern-card.yellow{background:var(--yellow-bright);}
+  .ep-pattern-icon{width:56px;height:56px;border-radius:9999px;display:flex;align-items:center;justify-content:center;}
+  .ep-pattern-card.dark .ep-pattern-icon{background:var(--yellow-bright);}
+  .ep-pattern-card.yellow .ep-pattern-icon{background:#000;}
+  .ep-pattern-icon svg{width:24px;height:24px;}
+  .ep-pattern-card.dark .ep-pattern-icon svg{stroke:#111;}
+  .ep-pattern-card.yellow .ep-pattern-icon svg{stroke:var(--yellow-bright);}
+  .ep-pattern-top{display:flex;flex-direction:column;gap:24px;}
+  .ep-pattern-card h3{font-weight:700;font-size:30px;}
+  .ep-pattern-card.dark h3{color:#fff;}
+  .ep-pattern-card.yellow h3{color:#000;}
+  .ep-pattern-tag{font-weight:700;font-size:12px;letter-spacing:1.2px;text-transform:uppercase;}
+  .ep-pattern-card.dark .ep-pattern-tag{color:var(--gray-700);}
+  .ep-pattern-card.yellow .ep-pattern-tag{color:rgba(0,0,0,0.6);}
+  .ep-pattern-card p.body{font-size:18px;line-height:1.55;}
+  .ep-pattern-card.dark p.body{color:#d1d5db;}
+  .ep-pattern-card.yellow p.body{color:#000;}
+
+  /* ============ FOOTER (shared) ============ */
+  .footer{background:var(--yellow-bright);padding:128px 80px 80px;display:flex;flex-direction:column;gap:128px;}
+  .footer-top{max-width:896px;display:flex;flex-direction:column;gap:48px;}
+  .footer-top h2{font-weight:800;font-size:72px;letter-spacing:-4px;color:#000;line-height:0.95;}
+  .footer-links{display:flex;gap:32px;flex-wrap:wrap;}
+  .footer-links a{font-weight:800;font-size:24px;color:#000;text-decoration:underline;text-underline-offset:4px;}
+  .footer-bottom{border-top:1px solid rgba(0,0,0,0.1);padding-top:80px;display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:32px;}
+  .footer-brand{display:flex;flex-direction:column;gap:24px;}
+  .footer-logo{background:var(--black);color:#fff;font-family:'Pacifico',cursive;font-size:32px;text-align:center;padding:16px 32px;}
+  .footer-tagline{font-weight:700;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:rgba(0,0,0,0.6);}
+  .footer-nav-col{display:flex;flex-direction:column;align-items:flex-end;gap:24px;}
+  .footer-nav{display:flex;gap:48px;flex-wrap:wrap;}
+  .footer-nav a{font-weight:800;font-size:14px;letter-spacing:1.4px;text-transform:uppercase;color:#000;}
+  .footer-copy{font-size:12px;color:rgba(0,0,0,0.4);}
+
+  @media (max-width:1100px){
+    .ep-header,.ep-intro,.ep-exec,.ep-project,.ep-patterns{padding-left:32px;padding-right:32px;}
+    .ep-nav{display:none;}
+    .ep-intro h1{font-size:48px;letter-spacing:-2px;}
+    .ep-intro-top{flex-direction:column;align-items:flex-start;}
+    .ep-intro-right{align-items:flex-start;}
+    .ep-intro-right p{text-align:left;}
+    .ep-project-inner,.ep-project-inner.reverse{flex-direction:column;}
+    .ep-project-media{width:100%;}
+    .ep-project h2{font-size:40px;}
+    .footer{padding:80px 32px 48px;}
+    .footer-bottom{flex-direction:column;align-items:flex-start;gap:48px;}
+    .footer-nav-col{align-items:flex-start;}
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ NAVBAR ============ -->
+<div class="cs-navbar">
+  <div class="wrap">
+    <div class="cs-navbar-row">
+      <a class="cs-logo" href="desktop-homepage.html">ricardotriana</a>
+      <nav class="cs-nav-links">
+        <a href="desktop-homepage.html#impact">Impact</a>
+        <a href="desktop-homepage.html#principles">Principles</a>
+        <a href="desktop-homepage.html#case-studies">Case Studies</a>
+        <a href="desktop-homepage.html#ai-ux">AI + UX</a>
+        <a href="desktop-homepage.html#about">About</a>
+        <a href="desktop-homepage.html#framework">Framework</a>
+      </nav>
+      <div class="cs-social">
+        <a href="https://www.linkedin.com/in/trianaricardo/?locale=en_US" target="_blank" aria-label="LinkedIn">
+          <svg width="19" height="19" viewBox="0 0 24 24"><rect width="24" height="24" rx="4" fill="#000"/><path d="M7.5 9h2.8v9H7.5V9Zm1.4-4.5A1.6 1.6 0 1 1 7.3 6.1 1.6 1.6 0 0 1 8.9 4.5ZM12.3 9h2.7v1.23h.04c.38-.7 1.3-1.44 2.68-1.44 2.87 0 3.4 1.83 3.4 4.2V18h-2.8v-4.4c0-1.05-.02-2.4-1.5-2.4-1.5 0-1.73 1.14-1.73 2.32V18h-2.79V9Z" fill="#fff"/></svg>
+        </a>
+        <a href="https://drive.google.com/file/d/1j9Ro1nNsLiptuclmUUe1wdJqXiIUSekA/view?usp=drive_link" target="_blank" aria-label="Download CV">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1.5"><path d="M6 2h9l5 5v13a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2Z"/><path d="M15 2v5h5"/><path d="M8 13h8M8 17h5" stroke-linecap="round"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="cs-navbar-divider"></div>
+  </div>
+</div>
+
+<!-- ============ INTRO ============ -->
+<section class="ep-intro">
+  <div class="wrap">
+    <div class="ep-intro-top">
+      <div class="ep-intro-left">
+        <div class="ep-tags">
+          <span class="ep-tag-dark">Banking</span>
+          <span class="ep-tag-dark">UX Strategy</span>
+          <span class="ep-tag-dark">Digital Transformation</span>
+        </div>
+        <h1>Additional work across banking, digital transformation, and UX operations.</h1>
+      </div>
+      <div class="ep-intro-right">
+        <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg>
+        <p>A selection of projects where I led UX strategy, research, design operations, and experience improvements across large-scale financial products and digital ecosystems.</p>
+      </div>
+    </div>
+    <div class="ep-stat-row">
+      <div class="ep-stat-card dark">
+        <span class="label">Impact</span>
+        <span class="value">5+</span>
+        <p class="desc">Additional strategic projects</p>
+      </div>
+      <div class="ep-stat-card light">
+        <span class="label">Scale</span>
+        <span class="value">500K+</span>
+        <p class="desc">Users impacted in digital ecosystems</p>
+      </div>
+      <div class="ep-stat-card light">
+        <span class="label">Prioritization</span>
+        <span class="value">20+</span>
+        <p class="desc">UX initiatives in channel backlogs</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ EXECUTIVE SUMMARY ============ -->
+<section class="ep-exec">
+  <div class="wrap ep-exec-inner">
+    <div class="ep-eyebrow"><span class="line"></span><span>01 Executive Summary</span></div>
+    <p class="ep-exec-statement">These projects expand the portfolio beyond the main case studies, showing how UX leadership can improve digital adoption, customer satisfaction, research operations, and product decision-making across different banking contexts.</p>
+  </div>
+</section>
+
+<!-- ============ PROJECT 1 — Live Unique Experiences ============ -->
+<section class="ep-project" style="background:#fff;">
+  <div class="ep-project-inner">
+    <div class="ep-project-text">
+      <div class="ep-project-copy">
+        <span class="ep-project-label on-light">Banking / Digital Transformation / UX Strategy</span>
+        <h2 class="on-light">Live Unique Experiences</h2>
+        <p class="ep-project-desc on-light">Leading the transformation of digital experiences for one of Colombia's largest financial groups, focusing on unifying customer touchpoints.</p>
+      </div>
+      <div class="ep-highlight-box">
+        <div class="ep-highlight-head">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1" fill="#111" stroke="none"/></svg>
+          <span>Impact Highlights</span>
+        </div>
+        <div class="ep-highlight-list">
+          <div class="ep-highlight-item"><span class="n">01.</span><span class="t">Impacting 500,000+ monthly active users across core features.</span></div>
+          <div class="ep-highlight-item"><span class="n">02.</span><span class="t">Achieved a System Usability Scale (SUS) score higher than 80.</span></div>
+          <div class="ep-highlight-item"><span class="n">03.</span><span class="t">Implemented a cross-functional governance model for design quality.</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="ep-project-media ep-media-caption">
+      <img src="https://www.figma.com/api/mcp/asset/89042059-c2b8-4808-8420-e4fa2845f905.png" alt="Av Villas Bank digital banking home screen">
+      <div class="ep-media-accent">
+        <img src="https://www.figma.com/api/mcp/asset/f0cb97bc-9747-421b-a849-280a504ee1a5.png" alt="Av Villas Bank digital banking mobile screen">
+      </div>
+      <div class="cap">
+        <span class="tag">PROJECT ASSET 01</span>
+        <span class="title">Experience Architecture</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROJECT 2 — The Elite Segment Bank ============ -->
+<section class="ep-project" style="background:#111;">
+  <div class="ep-project-inner reverse">
+    <div class="ep-project-text">
+      <div class="ep-project-copy">
+        <span class="ep-project-label on-dark">Premium Banking / Service Design</span>
+        <h2 class="on-dark">The Elite Segment Bank</h2>
+        <p class="ep-project-desc on-dark">Service design and UX strategy for high-net-worth individuals, focusing on exclusivity, trust, and seamless cross-channel assistance.</p>
+      </div>
+      <div class="ep-evidence-box">
+        <span class="head">Evidence of Success</span>
+        <div class="ep-evidence-list">
+          <p>Increased the SUS score by 10 points through targeted UX debt reduction.</p>
+          <p>Redesigned the onboarding for high-value investment products.</p>
+          <p>Reduced operational friction for private banking managers.</p>
+        </div>
+      </div>
+    </div>
+    <div class="ep-project-media ep-media-pill">
+      <img src="https://www.figma.com/api/mcp/asset/308267f0-4206-4532-a168-3bc95c496704.png" alt="Elite segment bank digital banking screen">
+      <div class="ep-pill-badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1" fill="#111" stroke="none"/></svg>
+        <span>Elite Segment Focus</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROJECT 3 — Simpler, Cooler, and Easier ============ -->
+<section class="ep-project" style="background:#fff;">
+  <div class="ep-project-inner">
+    <div class="ep-project-text">
+      <div class="ep-project-copy">
+        <span class="ep-project-label on-light">Digital Wallet Strategy / UX Research</span>
+        <h2 class="on-light">Simpler, Cooler, and Easier</h2>
+        <p class="ep-project-desc on-light">Leading the research and experience strategy for a leading digital wallet, aiming to simplify daily financial transactions for millenials.</p>
+      </div>
+      <div class="ep-stat-mini-row">
+        <div class="ep-stat-mini">
+          <h4>Atomic Research</h4>
+          <p>Standardized insight storage for the entire design team.</p>
+        </div>
+        <div class="ep-stat-mini">
+          <h4>DS Adoption</h4>
+          <p>100% adherence to core Design System components.</p>
+        </div>
+      </div>
+    </div>
+    <div class="ep-project-media" style="background:#f9f9f9;">
+      <img src="https://www.figma.com/api/mcp/asset/395cd8da-a335-487b-a8cc-067d81d42865.png" alt="Digital wallet product screenshot">
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROJECT 4 — Digitalizing 10 Million Colombians ============ -->
+<section class="ep-project" style="background:#f9f9f9;">
+  <div class="ep-project-inner reverse">
+    <div class="ep-project-text">
+      <div class="ep-project-copy">
+        <span class="ep-project-label on-light">Digital Banking / UXR</span>
+        <h2 class="on-light">Digitalizing 10 Million Colombians</h2>
+        <p class="ep-project-desc on-light">Establishing the UXR practice for a mass-market banking platform, focusing on accessibility and speed of insights.</p>
+      </div>
+      <div class="ep-numbered-list">
+        <div class="ep-numbered-item"><span class="num">01</span><span class="t">Implemented Agile UXR methodologies in 2-week sprints.</span></div>
+        <div class="ep-numbered-item"><span class="num">02</span><span class="t">Integrated research insights directly into Jira backlogs.</span></div>
+        <div class="ep-numbered-item"><span class="num">03</span><span class="t">Conducted large-scale remote usability tests across 5 regions.</span></div>
+      </div>
+    </div>
+    <div class="ep-project-media ep-duotone">
+      <img src="https://www.figma.com/api/mcp/asset/49728dec-090a-43f5-ba9d-9db507990fd3.png" alt="Mass-market digital banking platform home screen">
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROJECT 5 — The Bank of the People ============ -->
+<section class="ep-project" style="background:#fff;">
+  <div class="ep-project-inner">
+    <div class="ep-project-text">
+      <div class="ep-project-copy">
+        <span class="ep-project-label on-light">Mass Banking / UX Leadership</span>
+        <h2 class="on-light">The Bank of the People</h2>
+        <p class="ep-project-desc on-light">Leading the prioritization of experience improvements for the largest retail bank in the region, aligning technical feasibility with user needs.</p>
+      </div>
+      <div class="ep-yellow-card">
+        <div class="ep-yellow-card-head">
+          <h4>Measurable Impact</h4>
+          <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg>
+        </div>
+        <div class="ep-yellow-stats">
+          <div class="ep-yellow-stat"><div class="value">20+</div><div class="label">UX Initiatives</div></div>
+          <div class="ep-yellow-stat"><div class="value">+5</div><div class="label">SUS Points</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="ep-project-media ep-media-plain">
+      <img src="https://www.figma.com/api/mcp/asset/cf3bac54-f8b2-4b62-8f49-11acd99c98cd.png" alt="Banco Popular credit card application screen">
+      <div class="ep-media-accent">
+        <img src="https://www.figma.com/api/mcp/asset/c7f103f8-6538-4b86-85bb-0ba9628f6c6e.png" alt="Banco Popular savings and investment screen">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ IMPACT PATTERNS ============ -->
+<section class="ep-patterns">
+  <div class="ep-patterns-inner">
+    <div class="ep-patterns-head"><span class="line"></span><span>Impact Patterns</span></div>
+    <h2>Patterns across the work.</h2>
+    <div class="ep-pattern-grid">
+      <div class="ep-pattern-card dark">
+        <div class="ep-pattern-top">
+          <div class="ep-pattern-icon"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-9"/><path d="M15 6h6v6"/></svg></div>
+          <div><h3>Digital Adoption</h3></div>
+          <span class="ep-pattern-tag">Growth Strategy</span>
+        </div>
+        <p class="body">Focus on reducing friction in core acquisition funnels and simplifying complex financial onboarding.</p>
+      </div>
+      <div class="ep-pattern-card yellow">
+        <div class="ep-pattern-top">
+          <div class="ep-pattern-icon"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7 12 3l8 4-8 4-8-4Z"/><path d="M4 12l8 4 8-4"/><path d="M4 17l8 4 8-4"/></svg></div>
+          <div><h3>Research Operations</h3></div>
+          <span class="ep-pattern-tag">Operational Excellence</span>
+        </div>
+        <p class="body">Standardized UXR processes that connect user evidence directly to product roadmaps and stakeholder decisions.</p>
+      </div>
+      <div class="ep-pattern-card dark">
+        <div class="ep-pattern-top">
+          <div class="ep-pattern-icon"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="7" width="10" height="10" rx="2"/><path d="M9 3v3M15 3v3M9 18v3M15 18v3M3 9h3M3 15h3M18 9h3M18 15h3"/></svg></div>
+          <div><h3>UX Leadership</h3></div>
+          <span class="ep-pattern-tag">Strategic Alignment</span>
+        </div>
+        <p class="body">Bridging the gap between business constraints and user needs to prioritize the highest-impact initiatives.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER (CTA + nav, shared component) ============ -->
+<footer class="footer" id="footer">
+  <div class="footer-top">
+    <h2>Let's build UX that moves people, products, and business forward.</h2>
+    <div class="footer-links">
+      <a href="#">Email me</a>
+      <a href="https://www.linkedin.com/in/trianaricardo/?locale=en_US" target="_blank">LinkedIn</a>
+      <a href="https://drive.google.com/file/d/1j9Ro1nNsLiptuclmUUe1wdJqXiIUSekA/view?usp=drive_link" target="_blank">Download CV</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-brand">
+      <div class="footer-logo">ricardotriana</div>
+      <span class="footer-tagline">UX Lead Strategy &amp; Implementation</span>
+    </div>
+    <div class="footer-nav-col">
+      <nav class="footer-nav">
+        <a href="#">Impact</a>
+        <a href="#">Principles</a>
+        <a href="#">Framework</a>
+        <a href="#">Case Studies</a>
+        <a href="#">AI + UX</a>
+        <a href="#">About</a>
+      </nav>
+      <span class="footer-copy">© 2024 Ricardo Triana — All rights reserved.</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
