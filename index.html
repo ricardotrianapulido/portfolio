@@ -187,6 +187,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:cent
 .alt path{fill:none;stroke-width:3;vector-effect:non-scaling-stroke;stroke-linejoin:round}
 .alt .alt-base{stroke:var(--gray-border)}
 .alt #altp{stroke:#000}
+.alt-draw{clip-path:inset(0 100% 0 0)}
 .rider{position:absolute;left:0;top:0;width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;background:var(--yellow-bright);border:3px solid #000;opacity:0}
 @media (max-width:900px){
   .about-grid{grid-template-columns:1fr;grid-template-rows:auto 1fr;align-items:start;gap:18px;padding:calc(64px + 16px) var(--pad) 12vh calc(var(--pad) + 10px)}
@@ -346,7 +347,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:cent
     </div>
   </div>
   <div class="alt-wrap" id="altw">
-    <svg class="alt" viewBox="0 0 1000 220" preserveAspectRatio="none"><path class="alt-base" d="M0,210 L90,200 L150,180 L200,192 L270,150 L330,162 L400,110 L450,124 L530,60 L580,76 L650,22 L700,40 L760,12 L820,64 L880,120 L940,160 L1000,190"/><path id="altp" d="M0,210 L90,200 L150,180 L200,192 L270,150 L330,162 L400,110 L450,124 L530,60 L580,76 L650,22 L700,40 L760,12 L820,64 L880,120 L940,160 L1000,190"/></svg>
+    <svg class="alt" viewBox="0 0 1000 220" preserveAspectRatio="none"><path class="alt-base" d="M0,210 L90,200 L150,180 L200,192 L270,150 L330,162 L400,110 L450,124 L530,60 L580,76 L650,22 L700,40 L760,12 L820,64 L880,120 L940,160 L1000,190"/></svg><svg class="alt alt-draw" id="altd" viewBox="0 0 1000 220" preserveAspectRatio="none"><path id="altp" d="M0,210 L90,200 L150,180 L200,192 L270,150 L330,162 L400,110 L450,124 L530,60 L580,76 L650,22 L700,40 L760,12 L820,64 L880,120 L940,160 L1000,190"/></svg>
     <span class="rider" id="rider"></span>
   </div>
 </section>
@@ -514,10 +515,9 @@ atl.to('#hl',{backgroundSize:'100% 45%',duration:.5},2.4).add(()=>{},3);
 // ===== 6 ABOUT: endurance — chapters + altimetry as progress =====
 const ab=document.getElementById('about'),atxt=document.getElementById('atxt'),aH=document.getElementById('aboutH');
 const altp=document.getElementById('altp'),AL=altp.getTotalLength(),rider=document.getElementById('rider'),altw=document.getElementById('altw');
-altp.style.strokeDasharray=AL;altp.style.strokeDashoffset=AL;
 // headline starts centred in the text column, larger; then settles to its place
 const hOffset=()=>{const t=atxt.getBoundingClientRect(),h=aH.getBoundingClientRect();return (t.top+t.height/2)-(h.top+h.height/2)};
-function placeRider(p){const pt=altp.getPointAtLength(AL*p),r=altw.getBoundingClientRect();rider.style.transform='translate('+(pt.x/1000*r.width)+'px,'+(pt.y/220*r.height)+'px)'}
+function placeRider(p){let lo=0,hi=AL;for(let i=0;i<22;i++){const m=(lo+hi)/2;altp.getPointAtLength(m).x<p*1000?lo=m:hi=m}const pt=altp.getPointAtLength(lo),r=altw.getBoundingClientRect();rider.style.transform='translate('+(pt.x/1000*r.width)+'px,'+(pt.y/220*r.height)+'px)'}
 placeRider(0);
 const abtl=gsap.timeline({scrollTrigger:{trigger:ab,start:'top top',end:()=>'+='+260*K+'%',pin:true,scrub:true,invalidateOnRefresh:true,
   onUpdate:s=>placeRider(s.progress)}});
@@ -539,7 +539,7 @@ abtl.fromTo('#photo',{clipPath:'inset(100% 0 0 0 round 14px)'},{clipPath:'inset(
     .fromTo('#atxt .ints span',{opacity:0,y:16},{opacity:1,y:0,stagger:.08,duration:.3},3.1)
     .to({},{duration:.5},3.6);
 // the climb: altimetry draws along the whole scene
-abtl.to(altp,{strokeDashoffset:0,ease:'none',duration:abtl.duration()},0);
+abtl.fromTo('#altd',{clipPath:'inset(0 100% 0 0)'},{clipPath:'inset(0 0% 0 0)',ease:'none',duration:abtl.duration()},0);
 
 // ===== 7 FRAMEWORK: horizontal pan =====
 const fwcnt=document.getElementById('fwcnt');let cur=-1;
@@ -556,13 +556,16 @@ gsap.from('.f-links a, .f-bottom > div',{opacity:0,y:24,stagger:.08,duration:.8,
 
 // nav active + anchors
 const links=[...document.querySelectorAll('#links a')];
-['impact','principles','case-studies','ai-ux','about','framework'].forEach(id=>ScrollTrigger.create({trigger:'#'+id,start:'top 50%',end:id==='case-studies'?()=>'+='+(Math.max(0,document.getElementById('track').scrollWidth-window.innerWidth)+window.innerHeight*.6):'bottom 50%',onToggle:s=>{if(s.isActive)links.forEach(a=>a.classList.toggle('on',a.dataset.s===id))}}));
+['impact','principles','case-studies','ai-ux','about','framework'].forEach(id=>{const el=document.getElementById(id);const tr=()=>el.parentElement&&el.parentElement.classList.contains('pin-spacer')?el.parentElement:el;
+  ScrollTrigger.create({trigger:tr(),start:'top 50%',end:'bottom 50%',invalidateOnRefresh:true,onToggle:s=>{if(s.isActive)links.forEach(a=>a.classList.toggle('on',a.dataset.s===id));else if(!ScrollTrigger.getAll().some(x=>x.vars.__nav&&x.isActive))links.forEach(a=>a.classList.remove('on'))},__nav:true})});
 document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{const t=document.querySelector(a.getAttribute('href'));if(!t)return;e.preventDefault();const st=ScrollTrigger.getAll().find(s=>s.trigger===t&&s.pin);const y=st?st.start:t.getBoundingClientRect().top+window.scrollY;lenis?lenis.scrollTo(y,{duration:1.6}):window.scrollTo({top:y,behavior:'smooth'})}));
 
 // deep links (e.g. index.html#about from a case study): skip the intro and land on the section
 if('scrollRestoration' in history)history.scrollRestoration='manual';
 const deep=location.hash&&document.querySelector(location.hash);
-if(deep){intro.progress(1);window.addEventListener('load',()=>{ScrollTrigger.refresh();const st=ScrollTrigger.getAll().find(x=>x.trigger===deep&&x.pin);const y=st?st.start:deep.getBoundingClientRect().top+window.scrollY;lenis?lenis.scrollTo(y,{immediate:true,force:true}):window.scrollTo(0,y)})}
+if(deep){intro.progress(1);
+  const go=()=>{ScrollTrigger.refresh();const st=ScrollTrigger.getAll().find(x=>x.trigger===deep&&x.pin);const sp=deep.parentElement&&deep.parentElement.classList.contains('pin-spacer')?deep.parentElement:deep;const into={impact:.05,principles:.12,'ai-ux':.25,about:.3}[deep.id]||0;const y=st?st.start+(st.end-st.start)*into:sp.getBoundingClientRect().top+window.scrollY;if(lenis)lenis.scrollTo(y,{immediate:true,force:true});window.scrollTo(0,y)};
+  window.addEventListener('load',()=>{go();setTimeout(go,250);setTimeout(go,800)})}
 window.addEventListener('load',()=>ScrollTrigger.refresh());
 Promise.all([...document.images].map(i=>i.decode?i.decode().catch(()=>{}):null)).then(()=>ScrollTrigger.refresh());
 })();
