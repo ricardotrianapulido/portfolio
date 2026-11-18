@@ -761,5 +761,169 @@
   </div>
 </footer>
 
+<style>
+/* ===== motion layer (light) — shared by all case studies ===== */
+.cs-progress{position:fixed;left:0;top:0;height:4px;width:100%;background:#000;transform-origin:left;transform:scaleX(0);z-index:200;pointer-events:none}
+.mo-h1 .ln{display:block;overflow:hidden;padding-bottom:.06em}
+.mo-h1 .ln>span{display:inline-block}
+.mo-words .w{opacity:.15}
+.cs-slider{cursor:ew-resize;touch-action:pan-y;user-select:none}
+.cs-slider img{pointer-events:none}
+.cs-next-arrow{transition:transform .5s cubic-bezier(.16,1,.3,1),background .3s}
+.cs-next-arrow:hover{transform:rotate(45deg);background:#000}
+.cs-next-arrow:hover svg{stroke:#fffe55}
+.cs-sol-btn{transition:transform .35s cubic-bezier(.16,1,.3,1),box-shadow .35s}
+.cs-sol-btn:hover{transform:translateY(-3px)}
+.mo-bar{position:relative;border-left-color:transparent!important}
+.mo-bar::before{content:"";position:absolute;left:-4px;top:0;bottom:0;width:4px;background:var(--mo-bar,#facc15);transform-origin:top;transform:scaleY(var(--bl,1))}
+@media (prefers-reduced-motion: reduce){.cs-progress{display:none}.mo-words .w{opacity:1}}
+</style>
+<div class="cs-progress" id="csProgress"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+(function(){
+const $$=s=>[...document.querySelectorAll(s)], $=s=>document.querySelector(s);
+
+// before/after slider (Fintech) — draggable with or without animation
+const slider=$('.cs-slider');
+function setSplit(p){p=Math.max(0,Math.min(100,p));slider.querySelector('.cs-slider-before-panel').style.width=p+'%';slider.querySelector('.cs-slider-before-inner').style.width=(10000/Math.max(p,0.01))+'%';slider.querySelector('.cs-slider-handle').style.left=p+'%'}
+if(slider&&slider.querySelector('.cs-slider-before-panel')){
+  let drag=false;const pos=e=>{const r=slider.getBoundingClientRect();return (e.clientX-r.left)/r.width*100};
+  slider.addEventListener('pointerdown',e=>{drag=true;slider.setPointerCapture(e.pointerId);setSplit(pos(e))});
+  slider.addEventListener('pointermove',e=>{if(drag)setSplit(pos(e))});
+  ['pointerup','pointercancel'].forEach(t=>slider.addEventListener(t,()=>drag=false));
+  slider._set=setSplit;
+}
+
+const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+if(reduce||!window.gsap||!window.ScrollTrigger)return;
+gsap.registerPlugin(ScrollTrigger);
+const EASE='expo.out';
+// helpers: skip silently when a selector is not on this page
+const once=(trigger,start)=>({trigger,start:start||'top 85%',once:true});
+function up(sel,trig,o={}){const els=$$(sel);if(!els.length)return;const t=trig?(typeof trig==='string'?$(trig):trig):els[0];if(!t)return;
+  gsap.fromTo(els,{opacity:0,y:o.y??32,x:o.x||0},{opacity:1,y:0,x:0,duration:o.d||.9,stagger:o.s??.08,delay:o.delay||0,ease:EASE,scrollTrigger:once(t,o.start)})}
+function countUp(el,dur){if(!el)return;const raw=el.textContent.trim(),m=raw.match(/^([^\d]*)(\d+)(.*)$/s);if(!m)return;const o={v:0};el.textContent=m[1]+'0'+m[3];gsap.to(o,{v:+m[2],duration:dur||1.4,ease:'power3.out',onUpdate:()=>el.textContent=m[1]+Math.round(o.v)+m[3]})}
+function splitLines(h){const parts=h.innerHTML.split(/<br\s*\/?>/i).map(x=>x.trim()).filter(Boolean);let lines=parts;
+  if(parts.length<2){const w=h.textContent.trim().split(/\s+/),half=Math.ceil(w.length/2);lines=[w.slice(0,half).join(' '),w.slice(half).join(' ')].filter(Boolean)}
+  h.classList.add('mo-h1');h.innerHTML=lines.map(l=>'<span class="ln"><span>'+l+'</span></span>').join('')}
+function words(el){if(!el)return[];el.classList.add('mo-words');const w=[];const walk=n=>[...n.childNodes].forEach(c=>{if(c.nodeType===3){const f=document.createDocumentFragment();c.textContent.split(/(\s+)/).forEach(t=>{if(!t)return;if(/^\s+$/.test(t)){f.appendChild(document.createTextNode(t));return}const s=document.createElement('span');s.className='w';s.textContent=t;f.appendChild(s);w.push(s)});c.replaceWith(f)}else walk(c)});walk(el);return w}
+function bar(sel,color){$$(sel).forEach(el=>{el.classList.add('mo-bar');if(color)el.style.setProperty('--mo-bar',color);gsap.fromTo(el,{'--bl':0},{'--bl':1,duration:1,ease:'power3.out',scrollTrigger:once(el,'top 88%')})})}
+function reveal(sel,radius){$$(sel).forEach(el=>{const r=radius||getComputedStyle(el).borderRadius||'0px';gsap.fromTo(el,{clipPath:`inset(100% 0 0 0 round ${r})`},{clipPath:`inset(0% 0 0 0 round ${r})`,duration:1.3,ease:EASE,scrollTrigger:once(el)});const img=el.querySelector('img');if(img)gsap.fromTo(img,{scale:1.15},{scale:1,duration:1.8,ease:EASE,scrollTrigger:once(el)})})}
+function cards(sel,trig){$$(sel).forEach((c,i)=>gsap.fromTo(c,{opacity:0,y:50},{opacity:1,y:0,duration:1,delay:(i%3)*.1,ease:EASE,scrollTrigger:once(trig?$(trig):c,'top 88%')}))}
+function steps(lineSel,stepSel,dotSel,textSel,trig,highlightSel){const t=$(trig);if(!t)return;const tl=gsap.timeline({scrollTrigger:once(t,'top 80%')});
+  if($(lineSel))tl.from(lineSel,{scaleX:0,transformOrigin:'left',duration:1.4,ease:'power2.inOut'},0);
+  $$(stepSel).forEach((s,i)=>{const d=s.querySelector(dotSel);if(d)tl.from(d,{scale:0,duration:.6,ease:'back.out(2.2)'},.15+i*.22);tl.from(s.querySelectorAll(textSel),{opacity:0,y:16,duration:.6,stagger:.06,ease:EASE},.3+i*.22)});
+  if(highlightSel&&$(highlightSel))tl.to(highlightSel,{scale:1.12,duration:.25,yoyo:true,repeat:1,ease:'power2.inOut'},'+=.1')}
+
+// reading progress
+gsap.to('#csProgress',{scaleX:1,ease:'none',scrollTrigger:{trigger:document.body,start:'top top',end:'bottom bottom',scrub:.3}});
+
+// ===== HERO (on load) — both templates
+const h1=$('.cs-hero h1, header.hero h1');if(h1)splitLines(h1);
+const arrow=$('.cs-hero-right svg, .hero-right svg');let ap=null;
+if(arrow){ap=arrow.querySelector('path');if(ap){const L=ap.getTotalLength();ap.style.strokeDasharray=L;ap.style.strokeDashoffset=L}}
+const heroCards=$$('.cs-metric-card, .metric-card');
+const tl=gsap.timeline({defaults:{ease:EASE}});
+tl.from('.cs-navbar-row > *',{opacity:0,y:-12,stagger:.08,duration:.7})
+  .from('.cs-navbar-divider',{scaleX:0,transformOrigin:'left',duration:1},.1)
+  .from($$('.cs-tag-dark, .tag-dark'),{opacity:0,y:14,stagger:.07,duration:.6},.25)
+  .from($$('.mo-h1 .ln>span'),{yPercent:110,stagger:.1,duration:1.1},.35);
+if(ap)tl.to(ap,{strokeDashoffset:0,duration:1,ease:'power2.inOut'},.6);
+tl.from($$('.cs-hero-right p, .hero-right p'),{opacity:0,y:20,duration:.8},.8)
+  .from(heroCards,{opacity:0,y:60,stagger:.1,duration:1,onStart:()=>heroCards.forEach((c,i)=>gsap.delayedCall(.15+i*.1,()=>countUp(c.querySelector('.value'),1.3)))},1);
+
+// ===== EXECUTIVE SUMMARY — statement lights up word by word
+const st=$('.cs-exec-statement, .exec-statement');
+const sw=words(st);if(sw.length)gsap.to(sw,{opacity:1,stagger:.1,ease:'none',scrollTrigger:{trigger:st,start:'top 85%',end:'bottom 50%',scrub:true}});
+up('.cs-exec .cs-eyebrow, .exec-eyebrow','.cs-exec, .exec');
+up('.cs-exec-grid > div, .exec-grid > div','.cs-exec-grid, .exec-grid',{s:.12});
+
+// ===== PROJECT INFO (Itaú) / DNA (others)
+up('.info-col','.info-grid',{s:.1});
+gsap.utils.toArray('.info-pill, .cs-dna-pill').length&&gsap.from($$('.info-pill, .cs-dna-pill'),{opacity:0,scale:.8,duration:.5,stagger:.05,ease:'back.out(2)',scrollTrigger:once($('.info-pills, .cs-dna-pills'),'top 90%')});
+up('.cs-dna-head','.cs-dna');
+if($('.cs-dna-grid'))gsap.from('.cs-dna-col .col-divider',{scaleX:0,transformOrigin:'left',duration:1,stagger:.12,ease:EASE,scrollTrigger:once($('.cs-dna-grid'))});
+up('.cs-dna-col','.cs-dna-grid',{s:.12});
+if($('.cs-dna-foot'))gsap.from('.cs-dna-foot',{scaleX:0,transformOrigin:'left',duration:1.4,ease:EASE,scrollTrigger:once($('.cs-dna-foot'),'top 95%')});
+
+// ===== CHALLENGE
+up('.cs-eyebrow-solo, .cs-challenge h2, .cs-challenge-left > p','.cs-challenge',{s:.1});
+bar('.cs-challenge-list','#fffe55');
+up('.cs-challenge-list > div','.cs-challenge-list',{s:.07,y:16,delay:.2});
+reveal('.cs-challenge-photo','24px');
+up('.cs-challenge-badge','.cs-challenge-photo',{delay:.6});
+up('.challenge2-top > *','.challenge2',{s:.1});
+cards('.challenge2-card');
+reveal('.challenge2-photo','32px');
+
+// ===== DESIGNOPS SYSTEM (Itaú)
+up('.system-head > *','.system',{s:.1});
+cards('.system-card');
+
+// ===== LEADERSHIP DECISIONS — three variants
+up('.cs-leadership-head > *, .cs-ld-head > *, .ld2-head > *','.cs-leadership, .cs-ld, .ld2',{s:.1});
+cards('.cs-lead-card, .cs-ld-cell');
+bar('.cs-lead-card');
+$$('.ld2-item').forEach((it,i)=>{gsap.fromTo(it,{opacity:0,x:-30},{opacity:1,x:0,duration:.9,delay:(i%2)*.1,ease:EASE,scrollTrigger:once(it,'top 88%')});const n=it.querySelector('.ld2-num');if(n)gsap.from(n,{scale:0,rotate:-90,duration:.7,delay:.2+(i%2)*.1,ease:'back.out(2)',scrollTrigger:once(it,'top 88%')})});
+
+// ===== EVIDENCE
+up('.cs-evidence-label','.cs-evidence');
+up('.cs-insight','.cs-evidence-inner',{s:.14});
+up('.cs-evidence-card','.cs-evidence-card',{y:50});
+up('.cs-evidence-row','.cs-evidence-rows',{s:.09,y:0,x:30,d:.7});
+
+// ===== OPERATING MODEL — the line draws, steps light up in order
+up('.cs-operating-head > *, .model-head > *','.cs-operating, .model',{s:.1});
+steps('.cs-steps-line','.cs-step','.cs-step-circle','h5,p','.cs-steps','.cs-step.highlight .cs-step-circle');
+steps('.model-line','.model-step','.model-dot','h5,p','.model-steps');
+up('.cs-operating-foot > *','.cs-operating-foot',{s:.06,y:12});
+
+// ===== SOLUTION
+up('.cs-solution-head > *','.cs-solution',{s:.1});
+if(slider){gsap.fromTo(slider,{opacity:0,y:60,scale:.97},{opacity:1,y:0,scale:1,duration:1.1,ease:EASE,scrollTrigger:once(slider)});
+  if(slider._set){const sp={p:50};ScrollTrigger.create({trigger:slider,start:'top 60%',once:true,onEnter:()=>gsap.timeline().to(sp,{p:18,duration:.9,ease:'power2.inOut',onUpdate:()=>slider._set(sp.p)}).to(sp,{p:82,duration:1.2,ease:'power2.inOut',onUpdate:()=>slider._set(sp.p)}).to(sp,{p:50,duration:.9,ease:'power2.inOut',onUpdate:()=>slider._set(sp.p)})})}}
+// Dating: phones fan out from the centre, badges pop
+const stage=$('.cs-showcase-stage');
+if(stage){const t=gsap.timeline({scrollTrigger:once(stage,'top 75%')});
+  t.from('.cs-phone-center',{opacity:0,y:80,scale:.9,duration:1.1,ease:EASE},0);
+  $$('.cs-phone-card').forEach((c,i)=>{const toCenter=(50-parseFloat(c.style.left||50))*(stage.clientWidth/100);t.from(c,{x:toCenter,opacity:0,scale:.85,duration:1.2,ease:EASE},.35+(i%2)*.05+Math.floor(i/2)*.12)});
+  t.from('.cs-showcase-badge',{opacity:0,scale:.6,y:10,stagger:.1,duration:.6,ease:'back.out(2)'},1.1);}
+// Insurance: phone rises with the text
+if($('.cs-solution-phone'))gsap.fromTo('.cs-solution-phone',{opacity:0,y:100,rotate:4},{opacity:1,y:0,rotate:0,duration:1.3,ease:EASE,scrollTrigger:once($('.cs-solution-phone'),'top 85%')});
+up('.cs-solution-buttons, .cs-legend-item','.cs-solution-buttons',{s:.08,y:16});
+
+// ===== VALIDATION & RESULTS — numbers count
+up('.cs-validation-head > *, .validation2-top > *','.cs-validation, .validation2',{s:.1});
+const valDark=$('.cs-val-left, .cs-val2-dark, .cs-val3-dark');
+if(valDark){gsap.fromTo(valDark,{opacity:0,x:-40},{opacity:1,x:0,duration:1,ease:EASE,scrollTrigger:{...once(valDark),onEnter:()=>countUp(valDark.querySelector('.big, .cs-val2-metric-value, .cs-val3-metric-value'),1.6)}})}
+up('.cs-val-right','.cs-val-right',{y:0,x:40,d:1});
+ScrollTrigger.create({trigger:$('.cs-val-stats, .validation2-stats')||document.body,start:'top 85%',once:true,onEnter:()=>$$('.cs-val-stat .value, .validation2-stat .num').forEach((v,i)=>gsap.delayedCall(i*.12,()=>countUp(v,1.3)))});
+up('.cs-val-stat, .validation2-stat','.cs-val-stats, .validation2-stats',{s:.1,y:20});
+up('.cs-val2-card, .cs-val3-card','.cs-val2-list, .cs-val3-grid',{s:.1,y:0,x:40});
+up('.cs-val-pill, .cs-val2-pill','.cs-val-pills, .cs-val2-pills',{s:.06,y:12,d:.5,start:'top 92%'});
+up('.cs-val2-impact','.cs-val2-bottom');
+if($('.validation2-card')){up('.validation2-card','.validation2-card',{y:50});reveal('.validation2-shot','12px')}
+
+// ===== LEADERSHIP IMPACT
+up('.cs-limpact-head > *, .limpact2-head > *','.cs-limpact, .limpact2',{s:.1});
+$$('.cs-limpact-card, .limpact2-card').forEach((c,i)=>{const tr=c.parentElement;
+  gsap.fromTo(c,{opacity:0,y:60},{opacity:1,y:0,duration:1,delay:i*.1,ease:EASE,scrollTrigger:once(tr)});
+  const ic=c.querySelector('.cs-limpact-icon, .limpact2-icon');if(ic)gsap.from(ic,{scale:0,rotate:-90,duration:.7,delay:.3+i*.1,ease:'back.out(2)',scrollTrigger:once(tr)});
+  const rows=c.querySelectorAll('.row');if(rows.length)gsap.from(rows,{opacity:0,x:-14,stagger:.08,duration:.5,delay:.5+i*.1,ease:EASE,scrollTrigger:once(tr)})});
+up('.cs-limpact-quote','.cs-limpact-quote',{y:40});
+up('.cs-avatars img','.cs-limpact-quote',{s:.08,y:0,x:-16,d:.6});
+up('.limpact2-final','.limpact2-final');
+
+// ===== NEXT + FOOTER
+up('.cs-next-inner > div','.cs-next',{s:.12});
+up('.footer-top h2, .footer-links a','.footer',{s:.08});
+if($('.footer-logo'))gsap.from('.footer-logo',{clipPath:'inset(0 100% 0 0)',duration:1,ease:EASE,scrollTrigger:once($('.footer-bottom'),'top 95%')});
+
+window.addEventListener('load',()=>ScrollTrigger.refresh());
+})();
+</script>
+
 </body>
 </html>
