@@ -208,11 +208,11 @@ nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:cent
 .fw-head{position:absolute;top:96px;left:calc(var(--pad) + 10px);right:var(--pad);display:flex;justify-content:space-between;align-items:baseline;gap:20px;z-index:2}
 .fw-head h2{font-size:clamp(20px,2.2vw,32px);font-weight:800;letter-spacing:-.04em;max-width:26ch}
 .fw-head .cnt{font-size:12px;font-weight:800;letter-spacing:.15em}
-.fw-track{position:absolute;top:0;bottom:0;left:0;display:flex;align-items:center;padding-left:calc(var(--pad) + 10px)}
+.fw-track{position:absolute;top:calc(96px + 7.5em);bottom:76px;left:0;display:flex;align-items:center;padding-left:calc(var(--pad) + 10px);font-size:clamp(14px,1.5vw,20px)}
 .panel{width:min(78vw,820px);flex-shrink:0;padding-right:clamp(30px,6vw,90px)}
-.panel .n{font-size:clamp(140px,26vw,400px);font-weight:800;letter-spacing:-.08em;line-height:.8;color:transparent;-webkit-text-stroke:2px #000;transition:color .5s}
+.panel .n{font-size:clamp(84px,min(26vw,calc((100vh - 360px)*1.05)),400px);font-weight:800;letter-spacing:-.08em;line-height:.8;color:transparent;-webkit-text-stroke:2px #000;transition:color .5s}
 .panel.on .n{color:#000}
-.panel h3{font-size:clamp(32px,4.6vw,72px);font-weight:800;letter-spacing:-.05em;margin-top:18px}
+.panel h3{font-size:clamp(26px,min(4.6vw,7vh),72px);font-weight:800;letter-spacing:-.05em;margin-top:18px}
 .panel p{font-size:clamp(15px,1.4vw,20px);color:var(--gray-700);margin-top:10px;max-width:28ch}
 .fw-bar{position:absolute;left:calc(var(--pad) + 10px);right:var(--pad);bottom:56px;height:2px;background:var(--gray-divider)}
 .fw-bar i{position:absolute;inset:0;background:#000;transform-origin:left;transform:scaleX(0)}
@@ -248,6 +248,29 @@ nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:cent
   .cue.compact{top:auto;bottom:62px;right:14px;width:50px;height:50px;transform:translateY(18px)}
   .cue.compact.on{transform:none}
 }
+
+/* ===== phones & small tablets: same design, animations not tied to the finger ===== */
+html.lite .scene{height:auto;min-height:0;overflow:visible}
+html.lite .hero-stage{height:100vh;height:100svh;overflow:hidden}
+html.lite .impact{background:#000}
+html.lite .impact .sframe{position:relative;inset:auto;visibility:visible;min-height:88vh;min-height:88svh;padding-top:120px;padding-bottom:64px}
+html.lite .impact .summary{position:relative;inset:auto;visibility:visible;padding-top:72px;padding-bottom:72px;background:#f5f5f5}
+html.lite .principles .ptitle{position:relative;inset:auto;min-height:70vh;min-height:70svh;padding-top:96px;padding-bottom:48px}
+html.lite .principles .pframe{position:relative;inset:auto;visibility:visible;min-height:78vh;min-height:78svh;padding-top:64px;padding-bottom:64px}
+html.lite .principles .pframe.final{background:var(--yellow-bright)}
+html.lite #flood{display:none}
+html.lite .ai{padding-top:96px;padding-bottom:96px}
+html.lite .about .about-grid{position:relative;inset:auto;padding-top:96px;padding-bottom:24px}
+html.lite .about .photo{height:42vh;height:42svh}
+html.lite .about .bio p+p,html.lite .about .aquote{display:block}
+html.lite .alt-wrap{position:relative;height:14vh;margin-top:8px}
+html.lite .about{overflow:hidden}
+html.lite .fw{padding:96px 0 72px}
+html.lite .fw-head{position:relative;top:auto;left:auto;right:auto;padding:0 var(--pad) 0 calc(var(--pad) + 10px)}
+html.lite .fw-track{position:relative;top:auto;bottom:auto;margin-top:36px;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;scroll-padding-left:calc(var(--pad) + 10px);padding-right:22vw}
+html.lite .fw-track::-webkit-scrollbar{display:none}
+html.lite .fw-track .panel{scroll-snap-align:start}
+html.lite .fw-bar{position:relative;left:auto;right:auto;bottom:auto;margin:32px var(--pad) 0 calc(var(--pad) + 10px)}
 @media (prefers-reduced-motion: reduce){
   *{animation:none!important;transition:none!important}
   .intro{display:none}nav{transform:none}
@@ -256,6 +279,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:cent
     .quote .w{opacity:1}.flood{display:none}.pframe.final{color:#fff}
 }
 </style>
+<script>if(window.matchMedia("(max-width:900px)").matches)document.documentElement.classList.add("lite")</script>
 </head>
 <body class="locked">
 <div class="grain"></div>
@@ -393,11 +417,11 @@ const EASE='expo.out';
 const MOB=window.matchMedia('(max-width:760px)').matches;
 const K=MOB?.65:1; // scenes are shorter on phones: fewer swipes per scene
 ScrollTrigger.config({ignoreMobileResize:true});
-if(ScrollTrigger.isTouch===1)ScrollTrigger.normalizeScroll(true);
+const LITE=document.documentElement.classList.contains('lite');
 
 // smooth scroll
 let lenis=null;
-if(window.Lenis){lenis=new Lenis({lerp:.085,smoothWheel:true});lenis.stop();lenis.on('scroll',ScrollTrigger.update);gsap.ticker.add(t=>lenis.raf(t*1000));gsap.ticker.lagSmoothing(0)}
+if(window.Lenis&&!LITE){lenis=new Lenis({lerp:.085,smoothWheel:true});lenis.stop();lenis.on('scroll',ScrollTrigger.update);gsap.ticker.add(t=>lenis.raf(t*1000));gsap.ticker.lagSmoothing(0)}
 
 const setNum=(el,v)=>{el.textContent=(el.dataset.prefix||'')+Math.round(v)+(el.dataset.suffix||'')};
 function countTween(el){const o={v:0};return gsap.to(o,{v:+el.dataset.count,ease:'power2.out',onUpdate:()=>setNum(el,o.v),duration:1})}
@@ -412,9 +436,10 @@ gsap.set(['.hero-sub','.hero-btns','.stat > div:last-child','.words'],{opacity:0
 gsap.set('.stat .bar',{scaleY:0});
 const intro=gsap.timeline({defaults:{ease:EASE},onComplete:()=>{document.body.classList.remove('locked');lenis&&lenis.start();document.getElementById('intro').remove();showCue()}});
 intro.from('.intro .lg',{clipPath:'inset(0 100% 0 0)',duration:1.1,ease:'power4.inOut'})
-  .to('.intro .lg',{scale:.9,opacity:0,duration:.5,ease:'power2.in'},'+=.5')
+  .to('.intro .lg',{scale:.9,opacity:0,duration:.4,ease:'power2.in'},'+=.25')
   .to('.intro .lb.t',{yPercent:-100,duration:1.2,ease:'power4.inOut'},'-=.1')
   .to('.intro .lb.b',{yPercent:100,duration:1.2,ease:'power4.inOut'},'<')
+  .add(()=>{document.body.classList.remove('locked');lenis&&lenis.start()},'-=.6')
   .to('.hero .chip-bar',{scaleX:1,duration:.8},'-=.55')
   .to('.h1 .mask>span',{yPercent:0,duration:1.2,stagger:.1},'-=.6')
   .to(['.hero-sub','.hero-btns'],{opacity:1,y:0,duration:.8,stagger:.1},'-=.7')
@@ -432,6 +457,7 @@ function atEnd(){return ScrollTrigger.maxScroll(window)-window.scrollY<80}
 function showCue(){if(atEnd())return;cue.classList.toggle('compact',MOB||window.scrollY>20);cue.classList.add('on')}
 window.addEventListener('scroll',()=>{if(window.scrollY>20)cue.classList.remove('on');clearTimeout(idle);idle=setTimeout(showCue,1600)},{passive:true});
 
+if(!LITE){
 // ===== 1 HERO: pull back, then cut to black =====
 gsap.timeline({scrollTrigger:{trigger:'#top',start:'top top',end:()=>'+='+120*K+'%',pin:true,scrub:1}})
   .to(['.hero .chip-bar','.hero-sub','.hero-btns','.stat'],{opacity:0,y:-30,stagger:.04,duration:.3},0)
@@ -481,6 +507,7 @@ pfr.forEach((f,i)=>{
 });
 ptl.add(()=>{},2+pfr.length*1.8+.6);
 
+}
 // ===== 4 CASES =====
 function count(el,dur){if(!el||el._done)return;el._done=true;const o={v:0};setNum(el,0);gsap.to(o,{v:+el.dataset.count,duration:dur||1.3,ease:'power3.out',onUpdate:()=>setNum(el,o.v)})}
 document.querySelectorAll('.case .res b').forEach(el=>setNum(el,0));
@@ -503,8 +530,9 @@ function revealCase(c){
 }
 gsap.from('.cases-head',{opacity:0,y:20,duration:.8,ease:EASE,scrollTrigger:{trigger:'.cases',start:'top 80%'}});
 
-// ===== 5 AI =====
 const scr=document.getElementById('scr'),fin=scr.textContent,ch='ABCDEFGHIJKLMNOPQRSTUVWXYZ01#%&/<>';
+if(!LITE){
+// ===== 5 AI =====
 const atl=gsap.timeline({scrollTrigger:{trigger:'#ai-ux',start:'top top',end:()=>'+='+260*K+'%',pin:true,scrub:1,onEnter:()=>{let f=0;const id=setInterval(()=>{f++;scr.textContent=fin.split('').map((c,i)=>c===' '?' ':(i<f/1.5?c:ch[Math.random()*ch.length|0])).join('');if(f>fin.length*1.5){clearInterval(id);scr.textContent=fin}},24)}}});
 atl.from('#aih2 .mask>span',{yPercent:115,stagger:.1,duration:.4},0)
    .from('#aisub',{opacity:0,y:20,duration:.3},.25)
@@ -542,14 +570,57 @@ abtl.fromTo('#photo',{clipPath:'inset(100% 0 0 0 round 14px)'},{clipPath:'inset(
 abtl.fromTo('#altd',{clipPath:'inset(0 100% 0 0)'},{clipPath:'inset(0 0% 0 0)',ease:'none',duration:abtl.duration()},0);
 
 // ===== 7 FRAMEWORK: horizontal pan =====
-const fwcnt=document.getElementById('fwcnt');let cur=-1;
-const dist=()=>Math.max(0,fwtrack.scrollWidth-window.innerWidth*.55);
+const fwcnt=document.getElementById('fwcnt');let cur=-1;panels[0].classList.add('on');
+const dist=()=>Math.max(0,(panels.length-1)*panels[0].offsetWidth);
 gsap.timeline({scrollTrigger:{trigger:'#framework',start:'top top',end:()=>'+='+dist()*1.2,pin:true,scrub:1,invalidateOnRefresh:true,onUpdate:s=>{
-  const i=Math.min(6,Math.floor(s.progress*7*.999));if(i!==cur){cur=i;fwcnt.textContent='0'+(i+1)+' / 07';panels.forEach((p,j)=>p.classList.toggle('on',j<=i))}
+  const i=Math.min(6,Math.round(s.progress*6));if(i!==cur){cur=i;fwcnt.textContent='0'+(i+1)+' / 07';panels.forEach((p,j)=>p.classList.toggle('on',j<=i))}
 }}})
   .to(fwtrack,{x:()=>-dist(),ease:'none',duration:1},0)
   .to('#fwbar',{scaleX:1,ease:'none',duration:1},0);
 
+}
+
+// ===== PHONES: same scenes, played on arrival (no pinning, no scroll-scrubbing) =====
+if(LITE){
+  const onArrive=(el,fn,start)=>ScrollTrigger.create({trigger:el,start:start||'top 75%',once:true,onEnter:fn});
+  // IMPACT — each stat is its own band, the number counts when it arrives
+  document.querySelectorAll('#impact .sframe').forEach(f=>{
+    const big=f.querySelector('.big'),rest=f.querySelectorAll('.cap,.sub,.tag,.cnt');
+    f.style.background=f.dataset.bg;big.style.color=f.dataset.fg;setNum(big,0);
+    gsap.set(big,{yPercent:40,opacity:0});gsap.set(rest,{opacity:0,y:24});
+    onArrive(f,()=>{gsap.to(big,{yPercent:0,opacity:1,duration:.9,ease:EASE});const o={v:0};gsap.to(o,{v:+big.dataset.count,duration:1.3,ease:'power2.out',onUpdate:()=>setNum(big,o.v)});gsap.to(rest,{opacity:1,y:0,stagger:.08,duration:.7,delay:.3,ease:EASE})},'top 70%');
+  });
+  const sm=document.querySelector('#impact .summary');
+  gsap.set(sm.querySelectorAll('.srow div'),{opacity:0,y:30,scale:.92});
+  onArrive(sm,()=>{gsap.to(sm.querySelectorAll('.srow div'),{opacity:1,y:0,scale:1,stagger:.05,duration:.6,ease:'back.out(1.4)'});gsap.to(qWords,{opacity:1,stagger:.04,duration:.3,delay:.5,onComplete:()=>document.querySelectorAll('.quote .k').forEach(w=>w.classList.add('lit'))})});
+  // PRINCIPLES — title, then each statement; the last one wipes in yellow
+  gsap.set('#ptitle .mask>span',{yPercent:115});
+  onArrive('#ptitle',()=>gsap.to('#ptitle .mask>span',{yPercent:0,stagger:.1,duration:1,ease:EASE}));
+  document.querySelectorAll('#principles .pframe').forEach(f=>{
+    const m=f.querySelectorAll('h3 .mask>span'),r=f.querySelectorAll('.idx,p');gsap.set(m,{yPercent:115});gsap.set(r,{opacity:0,y:20});
+    if(f.classList.contains('final'))gsap.set(f,{clipPath:'circle(0% at 50% 50%)'});
+    onArrive(f,()=>{if(f.classList.contains('final'))gsap.to(f,{clipPath:'circle(150% at 50% 50%)',duration:1,ease:'power2.inOut'});gsap.to(m,{yPercent:0,stagger:.08,duration:.9,delay:f.classList.contains('final')?.35:0,ease:EASE});gsap.to(r,{opacity:1,y:0,stagger:.08,duration:.6,delay:.3,ease:EASE})},'top 65%');
+  });
+  // AI + UX — scramble, headline, cards arrive from depth
+  gsap.set('#aih2 .mask>span',{yPercent:115});gsap.set(['#aisub','.ai .ai-link'],{opacity:0,y:20});gsap.set('.acard',{opacity:0,y:60,rotateX:20,z:-300});
+  onArrive('#ai-ux',()=>{let f=0;const id=setInterval(()=>{f++;scr.textContent=fin.split('').map((c,i)=>c===' '?' ':(i<f/1.5?c:ch[Math.random()*ch.length|0])).join('');if(f>fin.length*1.5){clearInterval(id);scr.textContent=fin}},24);
+    gsap.timeline({defaults:{ease:EASE}}).to('#aih2 .mask>span',{yPercent:0,stagger:.1,duration:1}).to(['#aisub','.ai .ai-link'],{opacity:1,y:0,stagger:.1,duration:.7},.3)});
+  onArrive('.agrid',()=>{gsap.to('.acard',{opacity:1,y:0,rotateX:0,z:0,stagger:.15,duration:.9,ease:'power3.out'});gsap.to('#hl',{backgroundSize:'100% 45%',duration:.8,delay:.9})},'top 80%');
+  // ABOUT — chapters play on arrival; the climb draws itself
+  const altp=document.getElementById('altp'),AL=altp.getTotalLength(),rider=document.getElementById('rider'),altw=document.getElementById('altw');
+  const placeRider=p=>{let lo=0,hi=AL;for(let i=0;i<22;i++){const m=(lo+hi)/2;altp.getPointAtLength(m).x<p*1000?lo=m:hi=m}const pt=altp.getPointAtLength(lo),r=altw.getBoundingClientRect();rider.style.transform='translate('+(pt.x/1000*r.width)+'px,'+(pt.y/220*r.height)+'px)'};
+  placeRider(0);gsap.set('#altd',{clipPath:'inset(0 100% 0 0)'});gsap.set(rider,{opacity:0});
+  gsap.set('#photo',{clipPath:'inset(100% 0 0 0 round 14px)'});gsap.set('#photo img',{scale:1.2});gsap.set(aWords,{yPercent:110,opacity:0});
+  gsap.set(['#aeye','#atxt .bio p','#atxt .ints span'],{opacity:0,y:20});gsap.set('#aq',{opacity:0,'--qb':0});
+  onArrive('#photo',()=>{gsap.to('#photo',{clipPath:'inset(0% 0 0 0 round 14px)',duration:1.2,ease:EASE});gsap.to('#photo img',{scale:1,duration:1.6,ease:EASE})});
+  onArrive('#atxt',()=>gsap.timeline({defaults:{ease:EASE}}).to('#aeye',{opacity:1,y:0,duration:.5}).to(aWords,{yPercent:0,opacity:1,stagger:.08,duration:.8},.1).to('#atxt .bio p',{opacity:1,y:0,stagger:.15,duration:.7},.5).to('#aq',{opacity:1,'--qb':1,duration:.7},.9).to('#atxt .ints span',{opacity:1,y:0,stagger:.07,duration:.5},1.2),'top 80%');
+  onArrive('#altw',()=>{const o={p:0};gsap.to(rider,{opacity:1,duration:.3});gsap.to('#altd',{clipPath:'inset(0 0% 0 0)',duration:2.4,ease:'power1.inOut'});gsap.to(o,{p:1,duration:2.4,ease:'power1.inOut',onUpdate:()=>placeRider(o.p)})},'top 92%');
+  // FRAMEWORK — same horizontal row, moved by a native swipe that stops on each step
+  const fwcnt=document.getElementById('fwcnt'),bar=document.getElementById('fwbar');let cur=-1;
+  const upd=()=>{const w=panels[0].offsetWidth||1,i=Math.max(0,Math.min(6,Math.round(fwtrack.scrollLeft/w)));bar.style.transform='scaleX('+((i+1)/7)+')';if(i!==cur){cur=i;fwcnt.textContent='0'+(i+1)+' / 07';panels.forEach((p,j)=>p.classList.toggle('on',j<=i))}};
+  fwtrack.addEventListener('scroll',upd,{passive:true});upd();
+  gsap.set(panels,{opacity:0,x:40});onArrive('#fwtrack',()=>gsap.to(panels,{opacity:1,x:0,stagger:.08,duration:.8,ease:EASE}),'top 85%');
+}
 // ===== 8 FINALE =====
 gsap.from('#fh2 .mask>span',{yPercent:115,stagger:.06,duration:1,ease:EASE,scrollTrigger:{trigger:'#footer',start:'top 65%',onEnter:()=>{const f=document.getElementById('finish');f.classList.remove('pulse');void f.offsetWidth;f.classList.add('pulse')}}});
 gsap.from('.f-links a, .f-bottom > div',{opacity:0,y:24,stagger:.08,duration:.8,ease:EASE,scrollTrigger:{trigger:'.f-links',start:'top 92%'}});
@@ -562,6 +633,11 @@ document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',
 
 // deep links (e.g. index.html#about from a case study): skip the intro and land on the section
 if('scrollRestoration' in history)history.scrollRestoration='manual';
+const navType=(performance.getEntriesByType('navigation')[0]||{}).type;
+let saved=null;try{saved=sessionStorage.getItem('homeScroll')}catch(e){}
+window.addEventListener('pagehide',()=>{try{sessionStorage.setItem('homeScroll',String(window.scrollY))}catch(e){}});
+if(navType==='back_forward'&&saved!==null&&!location.hash){intro.progress(1);const y=+saved;const back=()=>{ScrollTrigger.refresh();if(lenis)lenis.scrollTo(y,{immediate:true,force:true});window.scrollTo(0,y)};window.addEventListener('load',()=>{back();setTimeout(back,250)})}
+window.addEventListener('pageshow',e=>{if(e.persisted){intro.progress(1);ScrollTrigger.refresh()}});
 const deep=location.hash&&document.querySelector(location.hash);
 if(deep){intro.progress(1);
   const go=()=>{ScrollTrigger.refresh();const st=ScrollTrigger.getAll().find(x=>x.trigger===deep&&x.pin);const sp=deep.parentElement&&deep.parentElement.classList.contains('pin-spacer')?deep.parentElement:deep;const into={impact:.05,principles:.12,'ai-ux':.25,about:.3}[deep.id]||0;const y=st?st.start+(st.end-st.start)*into:sp.getBoundingClientRect().top+window.scrollY;if(lenis)lenis.scrollTo(y,{immediate:true,force:true});window.scrollTo(0,y)};
